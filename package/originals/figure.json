@@ -1,0 +1,79 @@
+{
+  "manifest": 2,
+  "api": 2,
+  "id": "nahida",
+  "version": "0.2.0-test",
+  "name": {
+    "zh": "纳西妲",
+    "en": "Nahida"
+  },
+  "about": {
+    "zh": "纳西妲单角色原格式测试包",
+    "en": "Nahida single-character original-format test"
+  },
+  "entry": "figure.js",
+  "export": "createNahidaBody",
+  "model": "model.json",
+  "thumb": "thumbs/nahida.png",
+  "axes": [
+    {
+      "id": "outfit",
+      "name": {
+        "zh": "服装",
+        "en": "Outfit"
+      },
+      "options": [
+        {
+          "id": "original",
+          "thumb": "thumbs/nahida.png",
+          "name": {
+            "zh": "original",
+            "en": "original"
+          }
+        },
+        {
+          "id": "pajamas",
+          "thumb": "thumbs/nahida.png",
+          "name": {
+            "zh": "pajamas",
+            "en": "pajamas"
+          }
+        },
+        {
+          "id": "sailor",
+          "thumb": "thumbs/nahida.png",
+          "name": {
+            "zh": "sailor",
+            "en": "sailor"
+          }
+        },
+        {
+          "id": "blazer",
+          "thumb": "thumbs/nahida.png",
+          "name": {
+            "zh": "blazer",
+            "en": "blazer"
+          }
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "id": "nahida",
+      "pick": {
+        "outfit": "original"
+      },
+      "name": {
+        "zh": "纳西妲",
+        "en": "Nahida"
+      }
+    }
+  ],
+  "status": "experimental-original-format",
+  "runtimeNotes": [
+    "originals/ and live/ preserve the original package layout",
+    "original uses the independent Nahida figure renderer",
+    "new outfits are included with path-compatible assets"
+  ]
+}
