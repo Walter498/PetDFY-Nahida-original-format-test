@@ -1,50 +1,60 @@
-# PetDFY Nahida original-format test package
+# PetDFY Nahida root-entry original-format test package
 
-这是一个按 `PetDFY-assets.zip` 原始目录格式整理的纳西妲单角色测试包。
+当前发布版本为 **v0.3.0**。它在保留原始 `originals/` 与 `live/` 资源层的同时，补齐了宿主从 ZIP 根直接加载所需的根入口。
 
 ## 导入根
 
-解压 `PetDFY-Nahida-original-format-test.zip` 后，导入根直接包含：
+解压 `PetDFY-Nahida-root-format-test.zip` 后，宿主导入根直接包含：
 
 ```text
+figure.json
+figure.js
+model.json
 live/model.json
 originals/figure.json
-originals/figure.js
 originals/model.json
 originals/tex/
 originals/feat/
-originals/states/
-originals/outfits/
-originals/thumbs/
+characters/nahida/figure.json
+characters/nahida/figure.js
+characters/nahida/model.json
+characters/nahida/live/model.json
+characters/nahida/outfits/original/
 ```
 
-没有 `legacy/`、`character/` 或自定义的 `nahida-runtime-test-package/` 外层目录。
+根入口是 `figure.json`；`originals/` 与 `live/` 是保留的原始资源层。
 
 ## 入口
 
 ```text
-originals/figure.json
+figure.json
+  entry: figure.js
+  export: createNahidaBody
+  model: model.json
+
+characters/nahida/figure.json
   entry: figure.js
   export: createNahidaBody
   model: model.json
 ```
 
-`live/model.json` 使用原包的 `version/tables/models/upstreamCommit` 结构，并注册 `original`、`pajamas`、`sailor`、`blazer` 四个模型键；当前可直接测试的重点是纳西妲 `original`。
+`live/model.json` 保留原包的 `version/tables/models/upstreamCommit` 结构；纳西妲独立角色的 `characters/nahida/live/model.json` 注册 `original`。本 v0.3 测试包只把 `original` 标记为可直接测试，避免把未完成服装动态形变伪装成 ready。
 
 ## 已验证
 
 - ZIP `testzip=None`
-- ZIP 根目录只有 `live/` 与 `originals/`
-- `originals/figure.json`、`originals/model.json`、`originals/figure.js`、`live/model.json` 均存在
-- 纳西妲 36 个原装部件 PNG/PNG 路径存在
-- 入口在 Minis WebKit 中实际加载：`original-format entry OK · nahida · original`
-- SHA-256：见 `VALIDATION.json`
+- ZIP 根目录包含 `figure.json`、`figure.js`、`model.json`、`live/`、`originals/`、`characters/`
+- 根 `figure.json`、根 `figure.js`、根 `model.json` 均存在
+- `characters/nahida/` 独立角色入口和 `live/model.json` 均存在
+- 纳西妲 36 个原装部件、6 个状态 PNG 存在
+- 入口在 Minis WebKit 中实际加载：`root-entry OK · nahida · original`
+- v0.3.0 ZIP SHA-256：见 `VALIDATION.json`
 
 ## 测试页面
 
 工作区内的入口验证页面：
 
-`nahida-original-format-check.html`
+`nahida-root-format-check.html`
 
 ## 说明
 

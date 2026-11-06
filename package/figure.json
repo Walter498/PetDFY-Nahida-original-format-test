@@ -1,0 +1,55 @@
+{
+  "manifest": 2,
+  "api": 2,
+  "id": "nahida",
+  "version": "0.3.0-test",
+  "name": {
+    "zh": "纳西妲",
+    "en": "Nahida"
+  },
+  "about": {
+    "zh": "纳西妲单角色根入口测试包",
+    "en": "Nahida single-character root-entry test"
+  },
+  "entry": "figure.js",
+  "export": "createNahidaBody",
+  "model": "model.json",
+  "thumb": "characters/nahida/outfits/original/preview.png",
+  "axes": [
+    {
+      "id": "outfit",
+      "name": {
+        "zh": "服装",
+        "en": "Outfit"
+      },
+      "options": [
+        {
+          "id": "original",
+          "name": {
+            "zh": "原装",
+            "en": "Original"
+          },
+          "thumb": "outfits/original/preview.png"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "id": "nahida",
+      "pick": {
+        "outfit": "original"
+      },
+      "name": {
+        "zh": "纳西妲",
+        "en": "Nahida"
+      }
+    }
+  ],
+  "runtimeNotes": [
+    "root entry is figure.js",
+    "character is registered at characters/nahida",
+    "legacy originals/live are preserved at original paths",
+    "only original outfit is registered ready for this test"
+  ]
+}

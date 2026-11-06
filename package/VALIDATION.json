@@ -1,0 +1,17 @@
+{
+  "schema": "petdfy.nahida.root-format-validation.v1",
+  "status": "root-entry-format-verified",
+  "rootRequired": [
+    "figure.json",
+    "figure.js",
+    "model.json",
+    "live/model.json",
+    "originals/figure.json",
+    "characters/nahida/figure.json",
+    "characters/nahida/figure.js",
+    "characters/nahida/model.json",
+    "characters/nahida/live/model.json"
+  ],
+  "runtimeReadyOutfit": "original",
+  "legacyPathsPreserved": true
+}

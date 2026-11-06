@@ -1,0 +1,87 @@
+{
+  "manifest": 2,
+  "api": 2,
+  "id": "nahida",
+  "version": "0.3.0-test",
+  "name": {
+    "zh": "纳西妲",
+    "en": "Nahida"
+  },
+  "about": {
+    "zh": "纳西妲独立角色原格式测试包",
+    "en": "Nahida independent original-format character test"
+  },
+  "entry": "figure.js",
+  "export": "createNahidaBody",
+  "model": "model.json",
+  "thumb": "outfits/original/preview.png",
+  "axes": [
+    {
+      "id": "outfit",
+      "name": {
+        "zh": "服装",
+        "en": "Outfit"
+      },
+      "options": [
+        {
+          "id": "original",
+          "name": {
+            "zh": "原装",
+            "en": "Original"
+          },
+          "thumb": "outfits/original/preview.png"
+        }
+      ]
+    }
+  ],
+  "vocab": [
+    {
+      "id": "neutral",
+      "kind": "state",
+      "names": {
+        "zh": "neutral",
+        "en": "neutral"
+      }
+    },
+    {
+      "id": "happy",
+      "kind": "state",
+      "names": {
+        "zh": "happy",
+        "en": "happy"
+      }
+    },
+    {
+      "id": "wink",
+      "kind": "state",
+      "names": {
+        "zh": "wink",
+        "en": "wink"
+      }
+    },
+    {
+      "id": "sit",
+      "kind": "state",
+      "names": {
+        "zh": "sit",
+        "en": "sit"
+      }
+    },
+    {
+      "id": "sleep",
+      "kind": "state",
+      "names": {
+        "zh": "sleep",
+        "en": "sleep"
+      }
+    },
+    {
+      "id": "dragged",
+      "kind": "state",
+      "names": {
+        "zh": "dragged",
+        "en": "dragged"
+      }
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN"
+ "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<svg data-part="arm_near_sleeve" data-source="nahida-parts-sheet.png" version="1.0" xmlns="http://www.w3.org/2000/svg"
+ width="48.000000pt" height="13.000000pt" viewBox="0 0 48.000000 13.000000"
+ preserveAspectRatio="xMidYMid meet">
+<metadata>
+Created by potrace 1.16, written by Peter Selinger 2001-2019
+</metadata>
+<g transform="translate(0.000000,13.000000) scale(0.100000,-0.100000)"
+fill="#000000" stroke="none">
+<path id="arm_near_sleeve-path" d="M0 65 c0 -55 3 -65 18 -65 9 0 30 13 45 30 56 59 168 69 268 23 37
+-17 69 -36 73 -42 4 -6 23 -11 42 -11 l34 0 0 65 0 65 -240 0 -240 0 0 -65z
+M120 10 c-11 -7 1 -9 40 -9 42 1 49 3 30 9 -35 11 -53 11 -70 0z"/>
+</g>
+</svg>

@@ -1,108 +1,32 @@
 {
-  "schema": "petdfy.nahida.original-format-validation.v1",
-  "status": "format-and-entry-verified",
-  "zip": "PetDFY-Nahida-original-format-test.zip",
-  "zipSha256": "99cdbd238fd1b8c52aad8475002be9cc4e55c92a0acc5eab22e958dfbbcfd2cf",
-  "zipBytes": 20717548,
-  "zipMembers": 121,
+  "schema": "petdfy.nahida.root-format-validation.v1",
+  "status": "root-entry-format-verified",
+  "zip": "PetDFY-Nahida-root-format-test.zip",
+  "zipSha256": "9dcbe0ef434a74d1961f5b248746bd06ab2b2d8cdc01d1f5a31691d0cee194a0",
+  "zipBytes": 20241564,
+  "zipMembers": 610,
   "zipTestzip": null,
   "zipRoots": [
+    "characters",
+    "figure.js",
+    "figure.json",
     "live",
+    "model.json",
     "originals"
   ],
   "requiredFiles": {
+    "figure.json": true,
+    "figure.js": true,
+    "model.json": true,
     "live/model.json": true,
     "originals/figure.json": true,
-    "originals/figure.js": true,
     "originals/model.json": true,
-    "originals/states/neutral.png": true,
-    "originals/tex/torso_up.png": true,
-    "originals/feat/face.png": true
+    "characters/nahida/figure.json": true,
+    "characters/nahida/figure.js": true,
+    "characters/nahida/model.json": true,
+    "characters/nahida/live/model.json": true,
+    "characters/nahida/outfits/original/states/neutral.png": true
   },
-  "figure": {
-    "manifest": 2,
-    "api": 2,
-    "id": "nahida",
-    "version": "0.2.0-test",
-    "name": {
-      "zh": "纳西妲",
-      "en": "Nahida"
-    },
-    "about": {
-      "zh": "纳西妲单角色原格式测试包",
-      "en": "Nahida single-character original-format test"
-    },
-    "entry": "figure.js",
-    "export": "createNahidaBody",
-    "model": "model.json",
-    "thumb": "thumbs/nahida.png",
-    "axes": [
-      {
-        "id": "outfit",
-        "name": {
-          "zh": "服装",
-          "en": "Outfit"
-        },
-        "options": [
-          {
-            "id": "original",
-            "thumb": "thumbs/nahida.png",
-            "name": {
-              "zh": "original",
-              "en": "original"
-            }
-          },
-          {
-            "id": "pajamas",
-            "thumb": "thumbs/nahida.png",
-            "name": {
-              "zh": "pajamas",
-              "en": "pajamas"
-            }
-          },
-          {
-            "id": "sailor",
-            "thumb": "thumbs/nahida.png",
-            "name": {
-              "zh": "sailor",
-              "en": "sailor"
-            }
-          },
-          {
-            "id": "blazer",
-            "thumb": "thumbs/nahida.png",
-            "name": {
-              "zh": "blazer",
-              "en": "blazer"
-            }
-          }
-        ]
-      }
-    ],
-    "presets": [
-      {
-        "id": "nahida",
-        "pick": {
-          "outfit": "original"
-        },
-        "name": {
-          "zh": "纳西妲",
-          "en": "Nahida"
-        }
-      }
-    ],
-    "status": "experimental-original-format",
-    "runtimeNotes": [
-      "originals/ and live/ preserve the original package layout",
-      "original uses the independent Nahida figure renderer",
-      "new outfits are included with path-compatible assets"
-    ]
-  },
-  "modelParts": 36,
-  "liveModels": [
-    "original",
-    "pajamas",
-    "sailor",
-    "blazer"
-  ]
+  "runtimeReadyOutfit": "original",
+  "minisEntryTest": "root-entry OK · nahida · original"
 }

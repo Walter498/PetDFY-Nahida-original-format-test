@@ -1,0 +1,995 @@
+{
+  "id": "original",
+  "character": "nahida",
+  "name": {
+    "zh": "纳西妲原装",
+    "en": "Original"
+  },
+  "parts": [
+    {
+      "id": "hair_back",
+      "tex": "hair_back",
+      "src": "parts/hair_back.png",
+      "svg": "svg/hair_back.svg",
+      "z": 1,
+      "parent": "hairSway",
+      "grid": [
+        6,
+        6
+      ],
+      "box": [
+        0.0,
+        0.0,
+        101.9667,
+        118.4333
+      ],
+      "deformer": "hairSway",
+      "alpha_bbox_T": [
+        0,
+        0,
+        322,
+        374
+      ],
+      "channels": "srgba"
+    },
+    {
+      "id": "hair_back_left",
+      "tex": "hair_back_left",
+      "src": "parts/hair_back_left.png",
+      "svg": "svg/hair_back_left.svg",
+      "z": 0.75,
+      "parent": "hairSway",
+      "grid": [
+        6,
+        6
+      ],
+      "box": [
+        0.0,
+        0.0,
+        53.8333,
+        109.25
+      ],
+      "deformer": "hairSway",
+      "alpha_bbox_T": [
+        0,
+        0,
+        170,
+        345
+      ],
+      "channels": "srgba"
+    },
+    {
+      "id": "hair_back_right",
+      "tex": "hair_back_right",
+      "src": "parts/hair_back_right.png",
+      "svg": "svg/hair_back_right.svg",
+      "z": 1,
+      "parent": "hairSway",
+      "grid": [
+        6,
+        6
+      ],
+      "box": [
+        0.0,
+        0.0,
+        49.7167,
+        113.05
+      ],
+      "deformer": "hairSway",
+      "alpha_bbox_T": [
+        0,
+        0,
+        157,
+        357
+      ],
+      "channels": "srgba"
+    },
+    {
+      "id": "hair_back_curl",
+      "tex": "hair_back_curl",
+      "src": "parts/hair_back_curl.png",
+      "svg": "svg/hair_back_curl.svg",
+      "z": 1.75,
+      "parent": "hairSway",
+      "grid": [
+        6,
+        6
+      ],
+      "box": [
+        0.0,
+        0.0,
+        91.8333,
+        42.75
+      ],
+      "deformer": "hairSway",
+      "alpha_bbox_T": [
+        0,
+        0,
+        290,
+        135
+      ],
+      "channels": "srgba"
+    },
+    {
+      "id": "hair_front",
+      "tex": "hair_front",
+      "src": "parts/hair_front.png",
+      "svg": "svg/hair_front.svg",
+      "z": 11,
+      "parent": "bangsSway",
+      "grid": [
+        6,
+        6
+      ],
+      "box": [
+        0.0,
+        0.0,
+        104.5,
+        94.05
+      ],
+      "deformer": "bangsSway",
+      "alpha_bbox_T": [
+        0,
+        0,
+        330,
+        297
+      ],
+      "channels": "srgba"
+    },
+    {
+      "id": "headdress",
+      "tex": "headdress",
+      "src": "parts/headdress.png",
+      "svg": "svg/headdress.svg",
+      "z": 12,
+      "parent": "headFront",
+      "grid": [
+        6,
+        6
+      ],
+      "box": [
+        0.0,
+        0.0,
+        83.9167,
+        66.5
+      ],
+      "deformer": "headFront",
+      "alpha_bbox_T": [
+        0,
+        0,
+        265,
+        210
+      ],
+      "channels": "srgba"
+    },
+    {
+      "id": "leg_back",
+      "tex": "leg_back",
+      "src": "parts/leg_back.png",
+      "svg": "svg/leg_back.svg",
+      "z": 4,
+      "parent": "legBack",
+      "grid": [
+        6,
+        6
+      ],
+      "box": [
+        0.0,
+        0.0,
+        32.9333,
+        59.85
+      ],
+      "deformer": "legBack",
+      "alpha_bbox_T": [
+        0,
+        0,
+        104,
+        189
+      ],
+      "channels": "srgba"
+    },
+    {
+      "id": "leg_front",
+      "tex": "leg_front",
+      "src": "parts/leg_front.png",
+      "svg": "svg/leg_front.svg",
+      "z": 3,
+      "parent": "legFront",
+      "grid": [
+        6,
+        6
+      ],
+      "box": [
+        0.0,
+        0.0,
+        34.8333,
+        60.1667
+      ],
+      "deformer": "legFront",
+      "alpha_bbox_T": [
+        0,
+        0,
+        110,
+        190
+      ],
+      "channels": "srgba"
+    },
+    {
+      "id": "sock_back",
+      "tex": "sock_back",
+      "src": "parts/sock_back.png",
+      "svg": "svg/sock_back.svg",
+      "z": 4.1,
+      "parent": "legBack",
+      "grid": [
+        6,
+        6
+      ],
+      "box": [
+        0.0,
+        0.0,
+        32.9333,
+        23.4333
+      ],
+      "deformer": "legBack",
+      "alpha_bbox_T": [
+        0,
+        0,
+        104,
+        74
+      ],
+      "channels": "srgba"
+    },
+    {
+      "id": "sock_front",
+      "tex": "sock_front",
+      "src": "parts/sock_front.png",
+      "svg": "svg/sock_front.svg",
+      "z": 3.1,
+      "parent": "legFront",
+      "grid": [
+        6,
+        6
+      ],
+      "box": [
+        0.0,
+        0.0,
+        34.8333,
+        23.75
+      ],
+      "deformer": "legFront",
+      "alpha_bbox_T": [
+        0,
+        0,
+        110,
+        75
+      ],
+      "channels": "srgba"
+    },
+    {
+      "id": "shoe_back",
+      "tex": "shoe_back",
+      "src": "parts/shoe_back.png",
+      "svg": "svg/shoe_back.svg",
+      "z": 4.3,
+      "parent": "legBack",
+      "grid": [
+        6,
+        6
+      ],
+      "box": [
+        0.0,
+        0.0,
+        34.5167,
+        55.4167
+      ],
+      "deformer": "legBack",
+      "alpha_bbox_T": [
+        0,
+        0,
+        109,
+        175
+      ],
+      "channels": "srgba"
+    },
+    {
+      "id": "shoe_front",
+      "tex": "shoe_front",
+      "src": "parts/shoe_front.png",
+      "svg": "svg/shoe_front.svg",
+      "z": 3.3,
+      "parent": "legFront",
+      "grid": [
+        6,
+        6
+      ],
+      "box": [
+        0.0,
+        0.0,
+        37.6833,
+        55.4167
+      ],
+      "deformer": "legFront",
+      "alpha_bbox_T": [
+        0,
+        0,
+        119,
+        175
+      ],
+      "channels": "srgba"
+    },
+    {
+      "id": "skirt_shadow",
+      "tex": "skirt_shadow",
+      "src": "parts/skirt_shadow.png",
+      "svg": "svg/skirt_shadow.svg",
+      "z": 4.2,
+      "parent": "skirt",
+      "grid": [
+        6,
+        6
+      ],
+      "box": [
+        0.0,
+        0.0,
+        96.5833,
+        45.2833
+      ],
+      "deformer": "skirt",
+      "alpha_bbox_T": [
+        0,
+        0,
+        305,
+        143
+      ],
+      "channels": "srgba"
+    },
+    {
+      "id": "torso_up",
+      "tex": "torso_up",
+      "src": "parts/torso_up.png",
+      "svg": "svg/torso_up.svg",
+      "z": 5,
+      "parent": "body",
+      "grid": [
+        6,
+        6
+      ],
+      "box": [
+        0.0,
+        0.0,
+        99.4333,
+        92.7833
+      ],
+      "deformer": "body",
+      "alpha_bbox_T": [
+        0,
+        0,
+        314,
+        293
+      ],
+      "channels": "srgba"
+    },
+    {
+      "id": "collar",
+      "tex": "collar",
+      "src": "parts/collar.png",
+      "svg": "svg/collar.svg",
+      "z": 5.5,
+      "parent": "neck",
+      "grid": [
+        6,
+        6
+      ],
+      "box": [
+        0.0,
+        0.0,
+        63.3333,
+        34.8333
+      ],
+      "deformer": "neck",
+      "alpha_bbox_T": [
+        0,
+        0,
+        200,
+        110
+      ],
+      "channels": "srgba"
+    },
+    {
+      "id": "waist_band",
+      "tex": "waist_band",
+      "src": "parts/waist_band.png",
+      "svg": "svg/waist_band.svg",
+      "z": 5.4,
+      "parent": "waist",
+      "grid": [
+        6,
+        6
+      ],
+      "box": [
+        0.0,
+        0.0,
+        68.0833,
+        41.1667
+      ],
+      "deformer": "waist",
+      "alpha_bbox_T": [
+        0,
+        0,
+        215,
+        130
+      ],
+      "channels": "srgba"
+    },
+    {
+      "id": "skirt",
+      "tex": "skirt",
+      "src": "parts/skirt.png",
+      "svg": "svg/skirt.svg",
+      "z": 5.6,
+      "parent": "skirt",
+      "grid": [
+        6,
+        6
+      ],
+      "box": [
+        0.0,
+        0.0,
+        98.1667,
+        57.95
+      ],
+      "deformer": "skirt",
+      "alpha_bbox_T": [
+        0,
+        0,
+        310,
+        183
+      ],
+      "channels": "srgba"
+    },
+    {
+      "id": "skirt_sit",
+      "tex": "skirt_sit",
+      "src": "parts/skirt_sit.png",
+      "svg": "svg/skirt_sit.svg",
+      "z": 5.6,
+      "parent": "skirtSit",
+      "grid": [
+        6,
+        6
+      ],
+      "box": [
+        0.0,
+        0.0,
+        97.5333,
+        51.6167
+      ],
+      "deformer": "skirtSit",
+      "alpha_bbox_T": [
+        0,
+        0,
+        308,
+        163
+      ],
+      "channels": "srgba"
+    },
+    {
+      "id": "waist_accessory_front",
+      "tex": "waist_accessory_front",
+      "src": "parts/waist_accessory_front.png",
+      "svg": "svg/waist_accessory_front.svg",
+      "z": 5.7,
+      "parent": "waist",
+      "grid": [
+        6,
+        6
+      ],
+      "box": [
+        0.0,
+        0.0,
+        38.0,
+        47.5
+      ],
+      "deformer": "waist",
+      "alpha_bbox_T": [
+        0,
+        0,
+        120,
+        150
+      ],
+      "channels": "srgba"
+    },
+    {
+      "id": "arm_far",
+      "tex": "arm_far",
+      "src": "parts/arm_far.png",
+      "svg": "svg/arm_far.svg",
+      "z": 4.5,
+      "parent": "armFar",
+      "grid": [
+        6,
+        6
+      ],
+      "box": [
+        0.0,
+        0.0,
+        41.1667,
+        44.0167
+      ],
+      "deformer": "armFar",
+      "alpha_bbox_T": [
+        0,
+        0,
+        130,
+        139
+      ],
+      "channels": "srgba"
+    },
+    {
+      "id": "arm_far_end_front",
+      "tex": "arm_far_end_front",
+      "src": "parts/arm_far_end_front.png",
+      "svg": "svg/arm_far_end_front.svg",
+      "z": 5.1,
+      "parent": "armFar",
+      "grid": [
+        6,
+        6
+      ],
+      "box": [
+        0.0,
+        0.0,
+        41.1667,
+        44.0167
+      ],
+      "deformer": "armFar",
+      "alpha_bbox_T": [
+        0,
+        0,
+        130,
+        139
+      ],
+      "channels": "srgba"
+    },
+    {
+      "id": "arm_near",
+      "tex": "arm_near",
+      "src": "parts/arm_near.png",
+      "svg": "svg/arm_near.svg",
+      "z": 5.2,
+      "parent": "armNear",
+      "grid": [
+        6,
+        6
+      ],
+      "box": [
+        0.0,
+        0.0,
+        41.1667,
+        43.7
+      ],
+      "deformer": "armNear",
+      "alpha_bbox_T": [
+        0,
+        0,
+        130,
+        138
+      ],
+      "channels": "srgba"
+    },
+    {
+      "id": "arm_near_sleeve",
+      "tex": "arm_near_sleeve",
+      "src": "parts/arm_near_sleeve.png",
+      "svg": "svg/arm_near_sleeve.svg",
+      "z": 5.3,
+      "parent": "armNear",
+      "grid": [
+        6,
+        6
+      ],
+      "box": [
+        0.0,
+        0.0,
+        15.2,
+        4.1167
+      ],
+      "deformer": "armNear",
+      "alpha_bbox_T": [
+        0,
+        0,
+        48,
+        13
+      ],
+      "channels": "srgba"
+    },
+    {
+      "id": "arm_near_hand",
+      "tex": "arm_near_hand",
+      "src": "parts/arm_near_hand.png",
+      "svg": "svg/arm_near_hand.svg",
+      "z": 5.4,
+      "parent": "armNear",
+      "grid": [
+        6,
+        6
+      ],
+      "box": [
+        0.0,
+        0.0,
+        20.5833,
+        37.05
+      ],
+      "deformer": "armNear",
+      "alpha_bbox_T": [
+        0,
+        0,
+        65,
+        117
+      ],
+      "channels": "srgba"
+    },
+    {
+      "id": "arm_far_hand",
+      "tex": "arm_far_hand",
+      "src": "parts/arm_far_hand.png",
+      "svg": "svg/arm_far_hand.svg",
+      "z": 5.1,
+      "parent": "armFar",
+      "grid": [
+        6,
+        6
+      ],
+      "box": [
+        0.0,
+        0.0,
+        28.8167,
+        43.3833
+      ],
+      "deformer": "armFar",
+      "alpha_bbox_T": [
+        0,
+        0,
+        91,
+        137
+      ],
+      "channels": "srgba"
+    },
+    {
+      "id": "face",
+      "tex": "face",
+      "src": "parts/face.png",
+      "svg": "svg/face.svg",
+      "z": 7,
+      "parent": "headFeat",
+      "grid": [
+        6,
+        6
+      ],
+      "box": [
+        0.0,
+        0.0,
+        85.1833,
+        78.5333
+      ],
+      "deformer": "headFeat",
+      "alpha_bbox_T": [
+        0,
+        0,
+        269,
+        248
+      ],
+      "channels": "srgba"
+    },
+    {
+      "id": "eye_creases",
+      "tex": "eye_creases",
+      "src": "parts/eye_creases.png",
+      "svg": "svg/eye_creases.svg",
+      "z": 7.5,
+      "parent": "headFeat",
+      "grid": [
+        6,
+        6
+      ],
+      "box": [
+        0.0,
+        0.0,
+        67.7667,
+        23.75
+      ],
+      "deformer": "headFeat",
+      "alpha_bbox_T": [
+        0,
+        0,
+        214,
+        75
+      ],
+      "channels": "srgba"
+    },
+    {
+      "id": "brows",
+      "tex": "brows",
+      "src": "parts/brows.png",
+      "svg": "svg/brows.svg",
+      "z": 8.6,
+      "parent": "headFeat",
+      "grid": [
+        6,
+        6
+      ],
+      "box": [
+        0.0,
+        0.0,
+        62.7,
+        7.9167
+      ],
+      "deformer": "headFeat",
+      "alpha_bbox_T": [
+        0,
+        0,
+        198,
+        25
+      ],
+      "channels": "srgba"
+    },
+    {
+      "id": "eye_near_ball",
+      "tex": "eye_near_ball",
+      "src": "parts/eye_near_ball.png",
+      "svg": "svg/eye_near_ball.svg",
+      "z": 8.1,
+      "parent": "headFeat",
+      "grid": [
+        6,
+        6
+      ],
+      "box": [
+        0.0,
+        0.0,
+        33.25,
+        42.75
+      ],
+      "deformer": "headFeat",
+      "alpha_bbox_T": [
+        0,
+        0,
+        105,
+        135
+      ],
+      "channels": "srgba"
+    },
+    {
+      "id": "eye_near_iris",
+      "tex": "eye_near_iris",
+      "src": "parts/eye_near_iris.png",
+      "svg": "svg/eye_near_iris.svg",
+      "z": 8.2,
+      "parent": "headFeat",
+      "grid": [
+        6,
+        6
+      ],
+      "box": [
+        0.0,
+        0.0,
+        25.3333,
+        33.25
+      ],
+      "deformer": "headFeat",
+      "alpha_bbox_T": [
+        0,
+        0,
+        80,
+        105
+      ],
+      "channels": "srgba"
+    },
+    {
+      "id": "eye_near_lash",
+      "tex": "eye_near_lash",
+      "src": "parts/eye_near_lash.png",
+      "svg": "svg/eye_near_lash.svg",
+      "z": 8.3,
+      "parent": "headFeat",
+      "grid": [
+        6,
+        6
+      ],
+      "box": [
+        0.0,
+        0.0,
+        38.0,
+        22.1667
+      ],
+      "deformer": "headFeat",
+      "alpha_bbox_T": [
+        0,
+        0,
+        120,
+        70
+      ],
+      "channels": "srgba"
+    },
+    {
+      "id": "eye_near_highlight",
+      "tex": "eye_near_highlight",
+      "src": "parts/eye_near_highlight.png",
+      "svg": "svg/eye_near_highlight.svg",
+      "z": 8.4,
+      "parent": "headFeat",
+      "grid": [
+        6,
+        6
+      ],
+      "box": [
+        0.0,
+        0.0,
+        11.7167,
+        16.15
+      ],
+      "deformer": "headFeat",
+      "alpha_bbox_T": [
+        0,
+        0,
+        37,
+        51
+      ],
+      "channels": "srgba"
+    },
+    {
+      "id": "eye_far_ball",
+      "tex": "eye_far_ball",
+      "src": "parts/eye_far_ball.png",
+      "svg": "svg/eye_far_ball.svg",
+      "z": 8.1,
+      "parent": "headFeat",
+      "grid": [
+        6,
+        6
+      ],
+      "box": [
+        0.0,
+        0.0,
+        25.65,
+        39.5833
+      ],
+      "deformer": "headFeat",
+      "alpha_bbox_T": [
+        0,
+        0,
+        81,
+        125
+      ],
+      "channels": "srgba"
+    },
+    {
+      "id": "eye_far_iris",
+      "tex": "eye_far_iris",
+      "src": "parts/eye_far_iris.png",
+      "svg": "svg/eye_far_iris.svg",
+      "z": 8.2,
+      "parent": "headFeat",
+      "grid": [
+        6,
+        6
+      ],
+      "box": [
+        0.0,
+        0.0,
+        20.5833,
+        30.0833
+      ],
+      "deformer": "headFeat",
+      "alpha_bbox_T": [
+        0,
+        0,
+        65,
+        95
+      ],
+      "channels": "srgba"
+    },
+    {
+      "id": "eye_far_lash",
+      "tex": "eye_far_lash",
+      "src": "parts/eye_far_lash.png",
+      "svg": "svg/eye_far_lash.svg",
+      "z": 8.3,
+      "parent": "headFeat",
+      "grid": [
+        6,
+        6
+      ],
+      "box": [
+        0.0,
+        0.0,
+        19.0,
+        21.2167
+      ],
+      "deformer": "headFeat",
+      "alpha_bbox_T": [
+        0,
+        0,
+        60,
+        67
+      ],
+      "channels": "srgba"
+    },
+    {
+      "id": "eye_far_highlight",
+      "tex": "eye_far_highlight",
+      "src": "parts/eye_far_highlight.png",
+      "svg": "svg/eye_far_highlight.svg",
+      "z": 8.4,
+      "parent": "headFeat",
+      "grid": [
+        6,
+        6
+      ],
+      "box": [
+        0.0,
+        0.0,
+        17.4167,
+        13.9333
+      ],
+      "deformer": "headFeat",
+      "alpha_bbox_T": [
+        0,
+        0,
+        55,
+        44
+      ],
+      "channels": "srgba"
+    }
+  ],
+  "deformers": {
+    "body": [
+      "waist",
+      "neck",
+      "armNear",
+      "armFar",
+      "legBack",
+      "legFront",
+      "skirt",
+      "skirtSit"
+    ],
+    "head": [
+      "headBack",
+      "headMid",
+      "headFeat",
+      "headFront"
+    ],
+    "sway": [
+      "hairSway",
+      "bangsSway"
+    ]
+  },
+  "states": {
+    "neutral": "states/neutral.png",
+    "wink": "states/wink.png",
+    "sit": "states/sit.png",
+    "sleep": "states/sleep.png",
+    "happy": "states/happy.png",
+    "dragged": "states/dragged.png"
+  },
+  "preview": "preview.png",
+  "partsSource": "reference/nahida-parts-sheet.png",
+  "characterSpecific": true,
+  "coordinateBasis": {
+    "source": "MASTER_REFERENCE_SPEC.md",
+    "box": "local alpha-measured; global M/R placement remains pending",
+    "scale": 0.31666666666666665,
+    "grid": [
+      6,
+      6
+    ]
+  },
+  "optionalAbsent": [
+    {
+      "id": "waist_accessory_sit_front",
+      "status": "optional_absent",
+      "reason": "supplied parts sheet region is blank; PNG alpha was fully empty; placeholder removed rather than fabricated"
+    }
+  ]
+}

@@ -1,0 +1,720 @@
+{
+  "units": {
+    "S": 0.19,
+    "X0": 650,
+    "FEET": 1363,
+    "DS": 0.6,
+    "featDS": 1
+  },
+  "pivots": {
+    "body": [
+      128,
+      256
+    ],
+    "waist": [
+      128,
+      189
+    ],
+    "neck": [
+      128,
+      155
+    ],
+    "armNear": [
+      113,
+      166
+    ],
+    "armFar": [
+      154,
+      169
+    ],
+    "legBack": [
+      112,
+      203
+    ],
+    "legFront": [
+      144,
+      203
+    ],
+    "head": [
+      138,
+      115
+    ]
+  },
+  "parts": [
+    {
+      "id": "hair_back",
+      "tex": "hair_back",
+      "src": "tex/hair_back.png",
+      "z": 1,
+      "parent": "hairSway",
+      "grid": [
+        6,
+        6
+      ],
+      "box": [
+        0.0,
+        0.0,
+        101.9667,
+        118.4333
+      ],
+      "deformer": "hairSway"
+    },
+    {
+      "id": "hair_back_left",
+      "tex": "hair_back_left",
+      "src": "tex/hair_back_left.png",
+      "z": 0.75,
+      "parent": "hairSway",
+      "grid": [
+        6,
+        6
+      ],
+      "box": [
+        0.0,
+        0.0,
+        53.8333,
+        109.25
+      ],
+      "deformer": "hairSway"
+    },
+    {
+      "id": "hair_back_right",
+      "tex": "hair_back_right",
+      "src": "tex/hair_back_right.png",
+      "z": 1,
+      "parent": "hairSway",
+      "grid": [
+        6,
+        6
+      ],
+      "box": [
+        0.0,
+        0.0,
+        49.7167,
+        113.05
+      ],
+      "deformer": "hairSway"
+    },
+    {
+      "id": "hair_back_curl",
+      "tex": "hair_back_curl",
+      "src": "tex/hair_back_curl.png",
+      "z": 1.75,
+      "parent": "hairSway",
+      "grid": [
+        6,
+        6
+      ],
+      "box": [
+        0.0,
+        0.0,
+        91.8333,
+        42.75
+      ],
+      "deformer": "hairSway"
+    },
+    {
+      "id": "hair_front",
+      "tex": "hair_front",
+      "src": "tex/hair_front.png",
+      "z": 11,
+      "parent": "bangsSway",
+      "grid": [
+        6,
+        6
+      ],
+      "box": [
+        0.0,
+        0.0,
+        104.5,
+        94.05
+      ],
+      "deformer": "bangsSway"
+    },
+    {
+      "id": "headdress",
+      "tex": "headdress",
+      "src": "tex/headdress.png",
+      "z": 12,
+      "parent": "headFront",
+      "grid": [
+        6,
+        6
+      ],
+      "box": [
+        0.0,
+        0.0,
+        83.9167,
+        66.5
+      ],
+      "deformer": "headFront"
+    },
+    {
+      "id": "leg_back",
+      "tex": "leg_back",
+      "src": "tex/leg_back.png",
+      "z": 4,
+      "parent": "legBack",
+      "grid": [
+        6,
+        6
+      ],
+      "box": [
+        0.0,
+        0.0,
+        32.9333,
+        59.85
+      ],
+      "deformer": "legBack"
+    },
+    {
+      "id": "leg_front",
+      "tex": "leg_front",
+      "src": "tex/leg_front.png",
+      "z": 3,
+      "parent": "legFront",
+      "grid": [
+        6,
+        6
+      ],
+      "box": [
+        0.0,
+        0.0,
+        34.8333,
+        60.1667
+      ],
+      "deformer": "legFront"
+    },
+    {
+      "id": "sock_back",
+      "tex": "sock_back",
+      "src": "tex/sock_back.png",
+      "z": 4.1,
+      "parent": "legBack",
+      "grid": [
+        6,
+        6
+      ],
+      "box": [
+        0.0,
+        0.0,
+        32.9333,
+        23.4333
+      ],
+      "deformer": "legBack"
+    },
+    {
+      "id": "sock_front",
+      "tex": "sock_front",
+      "src": "tex/sock_front.png",
+      "z": 3.1,
+      "parent": "legFront",
+      "grid": [
+        6,
+        6
+      ],
+      "box": [
+        0.0,
+        0.0,
+        34.8333,
+        23.75
+      ],
+      "deformer": "legFront"
+    },
+    {
+      "id": "shoe_back",
+      "tex": "shoe_back",
+      "src": "tex/shoe_back.png",
+      "z": 4.3,
+      "parent": "legBack",
+      "grid": [
+        6,
+        6
+      ],
+      "box": [
+        0.0,
+        0.0,
+        34.5167,
+        55.4167
+      ],
+      "deformer": "legBack"
+    },
+    {
+      "id": "shoe_front",
+      "tex": "shoe_front",
+      "src": "tex/shoe_front.png",
+      "z": 3.3,
+      "parent": "legFront",
+      "grid": [
+        6,
+        6
+      ],
+      "box": [
+        0.0,
+        0.0,
+        37.6833,
+        55.4167
+      ],
+      "deformer": "legFront"
+    },
+    {
+      "id": "skirt_shadow",
+      "tex": "skirt_shadow",
+      "src": "tex/skirt_shadow.png",
+      "z": 4.2,
+      "parent": "skirt",
+      "grid": [
+        6,
+        6
+      ],
+      "box": [
+        0.0,
+        0.0,
+        96.5833,
+        45.2833
+      ],
+      "deformer": "skirt"
+    },
+    {
+      "id": "torso_up",
+      "tex": "torso_up",
+      "src": "tex/torso_up.png",
+      "z": 5,
+      "parent": "body",
+      "grid": [
+        6,
+        6
+      ],
+      "box": [
+        0.0,
+        0.0,
+        99.4333,
+        92.7833
+      ],
+      "deformer": "body"
+    },
+    {
+      "id": "collar",
+      "tex": "collar",
+      "src": "tex/collar.png",
+      "z": 5.5,
+      "parent": "neck",
+      "grid": [
+        6,
+        6
+      ],
+      "box": [
+        0.0,
+        0.0,
+        63.3333,
+        34.8333
+      ],
+      "deformer": "neck"
+    },
+    {
+      "id": "waist_band",
+      "tex": "waist_band",
+      "src": "tex/waist_band.png",
+      "z": 5.4,
+      "parent": "waist",
+      "grid": [
+        6,
+        6
+      ],
+      "box": [
+        0.0,
+        0.0,
+        68.0833,
+        41.1667
+      ],
+      "deformer": "waist"
+    },
+    {
+      "id": "skirt",
+      "tex": "skirt",
+      "src": "tex/skirt.png",
+      "z": 5.6,
+      "parent": "skirt",
+      "grid": [
+        6,
+        6
+      ],
+      "box": [
+        0.0,
+        0.0,
+        98.1667,
+        57.95
+      ],
+      "deformer": "skirt"
+    },
+    {
+      "id": "skirt_sit",
+      "tex": "skirt_sit",
+      "src": "tex/skirt_sit.png",
+      "z": 5.6,
+      "parent": "skirtSit",
+      "grid": [
+        6,
+        6
+      ],
+      "box": [
+        0.0,
+        0.0,
+        97.5333,
+        51.6167
+      ],
+      "deformer": "skirtSit"
+    },
+    {
+      "id": "waist_accessory_front",
+      "tex": "waist_accessory_front",
+      "src": "tex/waist_accessory_front.png",
+      "z": 5.7,
+      "parent": "waist",
+      "grid": [
+        6,
+        6
+      ],
+      "box": [
+        0.0,
+        0.0,
+        38.0,
+        47.5
+      ],
+      "deformer": "waist"
+    },
+    {
+      "id": "arm_far",
+      "tex": "arm_far",
+      "src": "tex/arm_far.png",
+      "z": 4.5,
+      "parent": "armFar",
+      "grid": [
+        6,
+        6
+      ],
+      "box": [
+        0.0,
+        0.0,
+        41.1667,
+        44.0167
+      ],
+      "deformer": "armFar"
+    },
+    {
+      "id": "arm_far_end_front",
+      "tex": "arm_far_end_front",
+      "src": "tex/arm_far_end_front.png",
+      "z": 5.1,
+      "parent": "armFar",
+      "grid": [
+        6,
+        6
+      ],
+      "box": [
+        0.0,
+        0.0,
+        41.1667,
+        44.0167
+      ],
+      "deformer": "armFar"
+    },
+    {
+      "id": "arm_near",
+      "tex": "arm_near",
+      "src": "tex/arm_near.png",
+      "z": 5.2,
+      "parent": "armNear",
+      "grid": [
+        6,
+        6
+      ],
+      "box": [
+        0.0,
+        0.0,
+        41.1667,
+        43.7
+      ],
+      "deformer": "armNear"
+    },
+    {
+      "id": "arm_near_sleeve",
+      "tex": "arm_near_sleeve",
+      "src": "tex/arm_near_sleeve.png",
+      "z": 5.3,
+      "parent": "armNear",
+      "grid": [
+        6,
+        6
+      ],
+      "box": [
+        0.0,
+        0.0,
+        15.2,
+        4.1167
+      ],
+      "deformer": "armNear"
+    },
+    {
+      "id": "arm_near_hand",
+      "tex": "arm_near_hand",
+      "src": "tex/arm_near_hand.png",
+      "z": 5.4,
+      "parent": "armNear",
+      "grid": [
+        6,
+        6
+      ],
+      "box": [
+        0.0,
+        0.0,
+        20.5833,
+        37.05
+      ],
+      "deformer": "armNear"
+    },
+    {
+      "id": "arm_far_hand",
+      "tex": "arm_far_hand",
+      "src": "tex/arm_far_hand.png",
+      "z": 5.1,
+      "parent": "armFar",
+      "grid": [
+        6,
+        6
+      ],
+      "box": [
+        0.0,
+        0.0,
+        28.8167,
+        43.3833
+      ],
+      "deformer": "armFar"
+    },
+    {
+      "id": "face",
+      "tex": "face",
+      "src": "feat/face.png",
+      "z": 7,
+      "parent": "headFeat",
+      "grid": [
+        6,
+        6
+      ],
+      "box": [
+        0.0,
+        0.0,
+        85.1833,
+        78.5333
+      ],
+      "deformer": "headFeat"
+    },
+    {
+      "id": "eye_creases",
+      "tex": "eye_creases",
+      "src": "feat/eye_creases.png",
+      "z": 7.5,
+      "parent": "headFeat",
+      "grid": [
+        6,
+        6
+      ],
+      "box": [
+        0.0,
+        0.0,
+        67.7667,
+        23.75
+      ],
+      "deformer": "headFeat"
+    },
+    {
+      "id": "brows",
+      "tex": "brows",
+      "src": "feat/brows.png",
+      "z": 8.6,
+      "parent": "headFeat",
+      "grid": [
+        6,
+        6
+      ],
+      "box": [
+        0.0,
+        0.0,
+        62.7,
+        7.9167
+      ],
+      "deformer": "headFeat"
+    },
+    {
+      "id": "eye_near_ball",
+      "tex": "eye_near_ball",
+      "src": "feat/eye_near_ball.png",
+      "z": 8.1,
+      "parent": "headFeat",
+      "grid": [
+        6,
+        6
+      ],
+      "box": [
+        0.0,
+        0.0,
+        33.25,
+        42.75
+      ],
+      "deformer": "headFeat"
+    },
+    {
+      "id": "eye_near_iris",
+      "tex": "eye_near_iris",
+      "src": "feat/eye_near_iris.png",
+      "z": 8.2,
+      "parent": "headFeat",
+      "grid": [
+        6,
+        6
+      ],
+      "box": [
+        0.0,
+        0.0,
+        25.3333,
+        33.25
+      ],
+      "deformer": "headFeat"
+    },
+    {
+      "id": "eye_near_lash",
+      "tex": "eye_near_lash",
+      "src": "feat/eye_near_lash.png",
+      "z": 8.3,
+      "parent": "headFeat",
+      "grid": [
+        6,
+        6
+      ],
+      "box": [
+        0.0,
+        0.0,
+        38.0,
+        22.1667
+      ],
+      "deformer": "headFeat"
+    },
+    {
+      "id": "eye_near_highlight",
+      "tex": "eye_near_highlight",
+      "src": "feat/eye_near_highlight.png",
+      "z": 8.4,
+      "parent": "headFeat",
+      "grid": [
+        6,
+        6
+      ],
+      "box": [
+        0.0,
+        0.0,
+        11.7167,
+        16.15
+      ],
+      "deformer": "headFeat"
+    },
+    {
+      "id": "eye_far_ball",
+      "tex": "eye_far_ball",
+      "src": "feat/eye_far_ball.png",
+      "z": 8.1,
+      "parent": "headFeat",
+      "grid": [
+        6,
+        6
+      ],
+      "box": [
+        0.0,
+        0.0,
+        25.65,
+        39.5833
+      ],
+      "deformer": "headFeat"
+    },
+    {
+      "id": "eye_far_iris",
+      "tex": "eye_far_iris",
+      "src": "feat/eye_far_iris.png",
+      "z": 8.2,
+      "parent": "headFeat",
+      "grid": [
+        6,
+        6
+      ],
+      "box": [
+        0.0,
+        0.0,
+        20.5833,
+        30.0833
+      ],
+      "deformer": "headFeat"
+    },
+    {
+      "id": "eye_far_lash",
+      "tex": "eye_far_lash",
+      "src": "feat/eye_far_lash.png",
+      "z": 8.3,
+      "parent": "headFeat",
+      "grid": [
+        6,
+        6
+      ],
+      "box": [
+        0.0,
+        0.0,
+        19.0,
+        21.2167
+      ],
+      "deformer": "headFeat"
+    },
+    {
+      "id": "eye_far_highlight",
+      "tex": "eye_far_highlight",
+      "src": "feat/eye_far_highlight.png",
+      "z": 8.4,
+      "parent": "headFeat",
+      "grid": [
+        6,
+        6
+      ],
+      "box": [
+        0.0,
+        0.0,
+        17.4167,
+        13.9333
+      ],
+      "deformer": "headFeat"
+    }
+  ],
+  "feat": {
+    "eyes": {},
+    "sprites": {},
+    "blush": null,
+    "skin": null
+  },
+  "schemes": [
+    {
+      "id": "nahida",
+      "brand": "Nahida",
+      "label": "纳西妲",
+      "accent": "#7AA96F",
+      "ready": true,
+      "eyeHighlights": false
+    }
+  ],
+  "view": [
+    -12,
+    -8,
+    268,
+    272
+  ],
+  "outfits": [
+    {
+      "id": "original"
+    }
+  ]
+}

@@ -1,0 +1,1293 @@
+{
+  "version": 1,
+  "tables": {
+    "faces": {
+      "neutral": {
+        "gap": [
+          50,
+          50
+        ],
+        "eyes": [
+          {
+            "shape": "ring",
+            "rx": 16,
+            "ry": 16
+          },
+          {
+            "shape": "ring",
+            "rx": 16,
+            "ry": 16
+          }
+        ]
+      },
+      "happy": {
+        "gap": [
+          58,
+          58
+        ],
+        "eyes": [
+          {
+            "shape": "up"
+          },
+          {
+            "shape": "up"
+          }
+        ],
+        "blush": 0.45
+      },
+      "wink": {
+        "gap": [
+          56,
+          52
+        ],
+        "eyes": [
+          {
+            "shape": "ring",
+            "rx": 16,
+            "ry": 16
+          },
+          {
+            "shape": "up"
+          }
+        ]
+      },
+      "love": {
+        "gap": [
+          56,
+          56
+        ],
+        "eyes": [
+          {
+            "shape": "heart",
+            "s": 0.8,
+            "sw": 8
+          },
+          {
+            "shape": "heart",
+            "s": 0.8,
+            "sw": 8
+          }
+        ],
+        "blush": 0.7,
+        "emit": "heart"
+      },
+      "shy": {
+        "gap": [
+          40,
+          40
+        ],
+        "eyes": [
+          {
+            "shape": "ring",
+            "rx": 13,
+            "ry": 12,
+            "dx": -3,
+            "dy": 5
+          },
+          {
+            "shape": "ring",
+            "rx": 13,
+            "ry": 12,
+            "dx": -3,
+            "dy": 5
+          }
+        ],
+        "blush": 1,
+        "lookLock": true
+      },
+      "surprised": {
+        "gap": [
+          62,
+          62
+        ],
+        "eyes": [
+          {
+            "shape": "ring",
+            "rx": 20,
+            "ry": 21
+          },
+          {
+            "shape": "ring",
+            "rx": 20,
+            "ry": 21
+          }
+        ],
+        "bang": true
+      },
+      "angry": {
+        "gap": [
+          36,
+          36
+        ],
+        "eyes": [
+          {
+            "shape": "ring",
+            "rx": 16,
+            "ry": 11,
+            "dy": 4
+          },
+          {
+            "shape": "ring",
+            "rx": 16,
+            "ry": 11,
+            "dy": 4
+          }
+        ],
+        "brows": "angry",
+        "anger": true,
+        "shake": true
+      },
+      "sad": {
+        "gap": [
+          34,
+          40
+        ],
+        "eyes": [
+          {
+            "shape": "ring",
+            "rx": 16,
+            "ry": 14,
+            "dy": 4
+          },
+          {
+            "shape": "ring",
+            "rx": 16,
+            "ry": 14,
+            "dy": 4
+          }
+        ],
+        "brows": "sad",
+        "emit": "tear"
+      },
+      "sleepy": {
+        "gap": [
+          50,
+          50
+        ],
+        "eyes": [
+          {
+            "shape": "lid",
+            "ry": 10
+          },
+          {
+            "shape": "lid",
+            "ry": 10
+          }
+        ]
+      },
+      "sleep": {
+        "gap": [
+          40,
+          40
+        ],
+        "eyes": [
+          {
+            "shape": "down"
+          },
+          {
+            "shape": "down"
+          }
+        ],
+        "emit": "z"
+      },
+      "dizzy": {
+        "gap": [
+          54,
+          48
+        ],
+        "eyes": [
+          {
+            "shape": "spiral",
+            "rot": 0
+          },
+          {
+            "shape": "spiral",
+            "rot": 1.4
+          }
+        ],
+        "orbit": true
+      },
+      "dragged": {
+        "gap": [
+          55,
+          55
+        ],
+        "eyes": [
+          {
+            "shape": "gt"
+          },
+          {
+            "shape": "lt"
+          }
+        ],
+        "sweat": true
+      },
+      "content": {
+        "gap": [
+          46,
+          46
+        ],
+        "eyes": [
+          {
+            "shape": "lid",
+            "ry": 13.5
+          },
+          {
+            "shape": "lid",
+            "ry": 13.5
+          }
+        ]
+      },
+      "waking": {
+        "gap": [
+          61.817693036146494,
+          61.817693036146494
+        ],
+        "eyes": [
+          {
+            "shape": "lid",
+            "ry": 3.106345728914545
+          },
+          {
+            "shape": "lid",
+            "ry": 3.106345728914545
+          }
+        ]
+      },
+      "squeeze": {
+        "gap": [
+          44,
+          44
+        ],
+        "eyes": [
+          {
+            "shape": "lid",
+            "ry": 0
+          },
+          {
+            "shape": "lid",
+            "ry": 0
+          }
+        ]
+      },
+      "listening": {
+        "gap": [
+          44,
+          44
+        ],
+        "eyes": [
+          {
+            "shape": "ring",
+            "rx": 17,
+            "ry": 18,
+            "dy": -1
+          },
+          {
+            "shape": "ring",
+            "rx": 17,
+            "ry": 18,
+            "dy": -1
+          }
+        ],
+        "listen": true
+      },
+      "thinking": {
+        "gap": [
+          46,
+          46
+        ],
+        "eyes": [
+          {
+            "shape": "ring",
+            "rx": 14,
+            "ry": 15,
+            "dx": 3,
+            "dy": -4
+          },
+          {
+            "shape": "ring",
+            "rx": 14,
+            "ry": 15,
+            "dx": 3,
+            "dy": -4
+          }
+        ],
+        "think": true
+      },
+      "run": {
+        "gap": [
+          55,
+          55
+        ],
+        "eyes": [
+          {
+            "shape": "ring",
+            "rx": 16,
+            "ry": 16
+          },
+          {
+            "shape": "ring",
+            "rx": 16,
+            "ry": 16
+          }
+        ],
+        "sweat": true
+      },
+      "smug": {
+        "gap": [
+          52,
+          46
+        ],
+        "eyes": [
+          {
+            "shape": "lid",
+            "ry": 8,
+            "dx": 4
+          },
+          {
+            "shape": "lid",
+            "ry": 8,
+            "dx": 4
+          }
+        ],
+        "blush": 0.25
+      },
+      "pout": {
+        "gap": [
+          28,
+          28
+        ],
+        "eyes": [
+          {
+            "shape": "ring",
+            "rx": 14,
+            "ry": 13
+          },
+          {
+            "shape": "ring",
+            "rx": 14,
+            "ry": 13
+          }
+        ],
+        "blush": 0.6,
+        "lookAt": [
+          -5,
+          -1
+        ]
+      },
+      "worried": {
+        "gap": [
+          40,
+          44
+        ],
+        "eyes": [
+          {
+            "shape": "ring",
+            "rx": 16,
+            "ry": 17,
+            "dy": 2
+          },
+          {
+            "shape": "ring",
+            "rx": 16,
+            "ry": 17,
+            "dy": 2
+          }
+        ],
+        "brows": "sad",
+        "sweat": true
+      },
+      "determined": {
+        "gap": [
+          42,
+          42
+        ],
+        "eyes": [
+          {
+            "shape": "ring",
+            "rx": 16,
+            "ry": 13,
+            "dy": 1
+          },
+          {
+            "shape": "ring",
+            "rx": 16,
+            "ry": 13,
+            "dy": 1
+          }
+        ],
+        "brows": "angry"
+      },
+      "flustered": {
+        "gap": [
+          50,
+          48
+        ],
+        "eyes": [
+          {
+            "shape": "gt"
+          },
+          {
+            "shape": "lt"
+          }
+        ],
+        "blush": 1,
+        "sweat": true
+      },
+      "scared": {
+        "gap": [
+          38,
+          38
+        ],
+        "eyes": [
+          {
+            "shape": "ring",
+            "rx": 18,
+            "ry": 19
+          },
+          {
+            "shape": "ring",
+            "rx": 18,
+            "ry": 19
+          }
+        ],
+        "brows": "sad",
+        "wide": true,
+        "shake": true,
+        "sweat": true
+      },
+      "excited": {
+        "gap": [
+          60,
+          60
+        ],
+        "eyes": [
+          {
+            "shape": "ring",
+            "rx": 18,
+            "ry": 19,
+            "dy": -1
+          },
+          {
+            "shape": "ring",
+            "rx": 18,
+            "ry": 19,
+            "dy": -1
+          }
+        ],
+        "sparkle": true,
+        "blush": 0.4
+      },
+      "cry": {
+        "gap": [
+          36,
+          36
+        ],
+        "eyes": [
+          {
+            "shape": "lid",
+            "ry": 0
+          },
+          {
+            "shape": "lid",
+            "ry": 0
+          }
+        ],
+        "brows": "sad",
+        "emit": "tears",
+        "streams": true
+      },
+      "bowing": {
+        "gap": [
+          48,
+          48
+        ],
+        "eyes": [
+          {
+            "shape": "lid",
+            "ry": 0
+          },
+          {
+            "shape": "lid",
+            "ry": 0
+          }
+        ]
+      },
+      "confused": {
+        "gap": [
+          44,
+          40
+        ],
+        "eyes": [
+          {
+            "shape": "ring",
+            "rx": 16,
+            "ry": 16
+          },
+          {
+            "shape": "ring",
+            "rx": 14,
+            "ry": 11
+          }
+        ],
+        "question": true
+      }
+    },
+    "MOOD": {
+      "happy": [
+        0.8,
+        1
+      ],
+      "love": [
+        0.9,
+        1
+      ],
+      "wink": [
+        0.5,
+        0.7
+      ],
+      "surprised": [
+        1,
+        0.2
+      ],
+      "angry": [
+        0.9,
+        0.15
+      ],
+      "sad": [
+        -1,
+        0
+      ],
+      "shy": [
+        -0.5,
+        0.3
+      ],
+      "sleepy": [
+        -0.7,
+        0
+      ],
+      "sleep": [
+        -0.9,
+        0
+      ],
+      "dizzy": [
+        -0.3,
+        0
+      ],
+      "dragged": [
+        0.6,
+        0.6
+      ],
+      "content": [
+        -0.2,
+        0.25
+      ],
+      "listening": [
+        0.6,
+        0.2
+      ],
+      "thinking": [
+        0.1,
+        0.15
+      ],
+      "run": [
+        0.2,
+        0.4
+      ],
+      "waking": [
+        -0.4,
+        0
+      ],
+      "squeeze": [
+        -0.3,
+        0
+      ],
+      "neutral": [
+        0,
+        0.25
+      ],
+      "smug": [
+        0.5,
+        0.6
+      ],
+      "pout": [
+        0.3,
+        0
+      ],
+      "worried": [
+        -0.3,
+        0.1
+      ],
+      "determined": [
+        0.9,
+        0.3
+      ],
+      "flustered": [
+        0.4,
+        0.8
+      ],
+      "scared": [
+        -1,
+        0
+      ],
+      "excited": [
+        1,
+        1
+      ],
+      "cry": [
+        -1,
+        0
+      ],
+      "confused": [
+        0.2,
+        0.1
+      ],
+      "bowing": [
+        -0.2,
+        0.2
+      ]
+    },
+    "BROW": {
+      "surprised": [
+        [
+          32,
+          4,
+          12,
+          0
+        ],
+        [
+          32,
+          2.4,
+          7.199999999999999,
+          0
+        ]
+      ],
+      "excited": [
+        [
+          20,
+          2,
+          9,
+          0
+        ],
+        [
+          20,
+          1.2,
+          5.3999999999999995,
+          0
+        ]
+      ],
+      "happy": [
+        [
+          9,
+          0,
+          6,
+          0
+        ],
+        [
+          9,
+          0,
+          3.5999999999999996,
+          0
+        ]
+      ],
+      "love": [
+        [
+          9,
+          4,
+          6,
+          0
+        ],
+        [
+          9,
+          2.4,
+          3.5999999999999996,
+          0
+        ]
+      ],
+      "listening": [
+        [
+          9,
+          0,
+          4,
+          0
+        ],
+        [
+          9,
+          0,
+          2.4,
+          0
+        ]
+      ],
+      "waking": [
+        [
+          6,
+          6,
+          0,
+          0
+        ],
+        [
+          6,
+          3.5999999999999996,
+          0,
+          0
+        ]
+      ],
+      "wink": [
+        [
+          9,
+          0,
+          6,
+          0
+        ],
+        [
+          -5,
+          0,
+          3,
+          0
+        ]
+      ],
+      "angry": [
+        [
+          -14,
+          -44,
+          -6,
+          8
+        ],
+        [
+          -14,
+          -26.4,
+          -3.5999999999999996,
+          4.8
+        ]
+      ],
+      "determined": [
+        [
+          -6,
+          -28,
+          -3,
+          5
+        ],
+        [
+          -6,
+          -16.8,
+          -1.7999999999999998,
+          3
+        ]
+      ],
+      "pout": [
+        [
+          -6,
+          -22,
+          -6,
+          5
+        ],
+        [
+          -6,
+          -13.2,
+          -3.5999999999999996,
+          3
+        ]
+      ],
+      "run": [
+        [
+          2,
+          -12,
+          -3,
+          0
+        ],
+        [
+          2,
+          -7.199999999999999,
+          -1.7999999999999998,
+          0
+        ]
+      ],
+      "squeeze": [
+        [
+          -12,
+          -14,
+          -8,
+          6
+        ],
+        [
+          -12,
+          -8.4,
+          -4.8,
+          3.5999999999999996
+        ]
+      ],
+      "shy": [
+        [
+          0,
+          16,
+          -4,
+          4
+        ],
+        [
+          0,
+          9.6,
+          -2.4,
+          2.4
+        ]
+      ],
+      "sad": [
+        [
+          -10,
+          30,
+          -2,
+          6
+        ],
+        [
+          -10,
+          18,
+          -1.2,
+          3.5999999999999996
+        ]
+      ],
+      "cry": [
+        [
+          -10,
+          38,
+          -4,
+          8
+        ],
+        [
+          -10,
+          22.8,
+          -2.4,
+          4.8
+        ]
+      ],
+      "worried": [
+        [
+          -6,
+          24,
+          0,
+          5
+        ],
+        [
+          -6,
+          14.399999999999999,
+          0,
+          3
+        ]
+      ],
+      "scared": [
+        [
+          6,
+          26,
+          0,
+          5
+        ],
+        [
+          6,
+          15.6,
+          0,
+          3
+        ]
+      ],
+      "flustered": [
+        [
+          2,
+          22,
+          0,
+          4
+        ],
+        [
+          2,
+          13.2,
+          0,
+          2.4
+        ]
+      ],
+      "dragged": [
+        [
+          -4,
+          24,
+          0,
+          6
+        ],
+        [
+          -4,
+          14.399999999999999,
+          0,
+          3.5999999999999996
+        ]
+      ],
+      "sleepy": [
+        [
+          -10,
+          2,
+          -4,
+          0
+        ],
+        [
+          -10,
+          1.2,
+          -2.4,
+          0
+        ]
+      ],
+      "sleep": [
+        [
+          -10,
+          4,
+          -2,
+          0
+        ],
+        [
+          -10,
+          2.4,
+          -1.2,
+          0
+        ]
+      ],
+      "content": [
+        [
+          -3,
+          0,
+          3,
+          0
+        ],
+        [
+          -3,
+          0,
+          1.7999999999999998,
+          0
+        ]
+      ],
+      "bowing": [
+        [
+          -3,
+          3,
+          0,
+          0
+        ],
+        [
+          -3,
+          1.7999999999999998,
+          0,
+          0
+        ]
+      ],
+      "dizzy": [
+        [
+          12,
+          14,
+          0,
+          0
+        ],
+        [
+          -6,
+          -10,
+          0,
+          0
+        ]
+      ],
+      "thinking": [
+        [
+          -6,
+          -14,
+          -4,
+          4
+        ],
+        [
+          14,
+          4,
+          6,
+          0
+        ]
+      ],
+      "smug": [
+        [
+          -8,
+          -18,
+          0,
+          0
+        ],
+        [
+          14,
+          -6,
+          4,
+          0
+        ]
+      ],
+      "confused": [
+        [
+          -10,
+          -12,
+          -4,
+          3
+        ],
+        [
+          22,
+          6,
+          8,
+          0
+        ]
+      ]
+    },
+    "BROW_RATE": {
+      "surprised": 18,
+      "scared": 18,
+      "excited": 14,
+      "angry": 16,
+      "dragged": 16,
+      "squeeze": 16,
+      "sad": 4,
+      "cry": 4,
+      "worried": 6,
+      "sleepy": 3,
+      "sleep": 3,
+      "content": 4
+    },
+    "HEAD_TILT": {
+      "shy": 7,
+      "thinking": -8,
+      "smug": -6,
+      "pout": -4,
+      "confused": -7,
+      "worried": 3,
+      "cry": 4
+    },
+    "HEAD_PITCH": {
+      "sad": 0.35,
+      "cry": 0.45,
+      "worried": 0.15
+    },
+    "HL_MOOD": {
+      "sad": {
+        "scale": 1.12,
+        "quiver": 1
+      },
+      "worried": {
+        "scale": 1.1,
+        "quiver": 0.8
+      },
+      "shy": {
+        "scale": 1.1,
+        "quiver": 0.6
+      },
+      "pout": {
+        "scale": 1.06,
+        "quiver": 0.4
+      },
+      "excited": {
+        "scale": 1.18
+      },
+      "listening": {
+        "scale": 1.06
+      },
+      "angry": {
+        "scale": 0.78
+      },
+      "determined": {
+        "scale": 0.86
+      },
+      "sleepy": {
+        "scale": 0.92,
+        "alpha": 0.7
+      },
+      "content": {
+        "alpha": 0.8
+      },
+      "waking": {
+        "alpha": 0.75
+      }
+    },
+    "MOUTH": {
+      "neutral": "neutral_mouth",
+      "happy": "happy_mouth",
+      "wink": [
+        "happy_mouth",
+        0.8
+      ],
+      "love": "love_mouth",
+      "shy": [
+        "drag_mouth",
+        0.7
+      ],
+      "surprised": "surprised_mouth",
+      "sleepy": "sleep_mouth",
+      "sleep": "sleep_mouth",
+      "dizzy": "dizzy_mouth",
+      "dragged": "drag_mouth",
+      "content": "neutral_mouth",
+      "waking": [
+        "surprised_mouth",
+        0.6
+      ],
+      "squeeze": "sleep_mouth",
+      "listening": "neutral_mouth",
+      "thinking": "sleep_mouth",
+      "run": [
+        "happy_mouth",
+        0.7
+      ],
+      "angry": -1,
+      "sad": -1.2,
+      "smug": 0.7,
+      "pout": [
+        "surprised_mouth",
+        0.45
+      ],
+      "worried": [
+        "drag_mouth",
+        0.6
+      ],
+      "determined": 0.15,
+      "flustered": [
+        "drag_mouth",
+        0.8
+      ],
+      "scared": [
+        "drag_mouth",
+        0.8
+      ],
+      "excited": "happy_mouth",
+      "cry": [
+        "surprised_mouth",
+        0.8
+      ],
+      "confused": -0.35
+    },
+    "MOUTH_DY": {
+      "happy_mouth": 9,
+      "drag_mouth": 16,
+      "sleep_mouth": 4
+    }
+  },
+  "models": {
+    "original": {
+      "deformers": {
+        "body": {
+          "kind": "rot",
+          "pivot": [
+            128,
+            256
+          ]
+        },
+        "waist": {
+          "kind": "rot",
+          "parent": "body",
+          "pivot": [
+            128,
+            189
+          ]
+        },
+        "armNear": {
+          "kind": "rot",
+          "parent": "waist",
+          "pivot": [
+            113,
+            166
+          ]
+        },
+        "armFar": {
+          "kind": "rot",
+          "parent": "waist",
+          "pivot": [
+            154,
+            169
+          ]
+        },
+        "legBack": {
+          "kind": "warp",
+          "parent": "body",
+          "rect": [
+            80,
+            168,
+            175,
+            256
+          ]
+        },
+        "legFront": {
+          "kind": "warp",
+          "parent": "body",
+          "rect": [
+            105,
+            168,
+            180,
+            256
+          ]
+        },
+        "neck": {
+          "kind": "rot",
+          "parent": "waist",
+          "pivot": [
+            128,
+            155
+          ]
+        },
+        "headBack": {
+          "kind": "warp",
+          "parent": "neck",
+          "rect": [
+            30,
+            12,
+            215,
+            168
+          ]
+        },
+        "headMid": {
+          "kind": "warp",
+          "parent": "neck",
+          "rect": [
+            30,
+            12,
+            215,
+            168
+          ]
+        },
+        "headFeat": {
+          "kind": "warp",
+          "parent": "neck",
+          "rect": [
+            30,
+            12,
+            215,
+            168
+          ]
+        },
+        "headFront": {
+          "kind": "warp",
+          "parent": "neck",
+          "rect": [
+            30,
+            12,
+            215,
+            168
+          ]
+        },
+        "hairSway": {
+          "kind": "warp",
+          "parent": "headBack",
+          "rect": [
+            30,
+            30,
+            220,
+            250
+          ]
+        },
+        "bangsSway": {
+          "kind": "warp",
+          "parent": "headFront",
+          "rect": [
+            40,
+            20,
+            220,
+            180
+          ]
+        }
+      },
+      "parts": 36,
+      "view": [
+        -12,
+        -8,
+        268,
+        272
+      ]
+    }
+  },
+  "upstreamCommit": "nahida-original-format-test"
+}
