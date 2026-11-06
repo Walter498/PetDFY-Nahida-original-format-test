@@ -5,6 +5,8 @@ on:
     branches: [native-compat-build-20261106]
     paths:
       - 'native-integration/NahidaCompat.m'
+      - 'native-integration/prepare.py'
+      - 'native-integration/test_contract.py'
       - 'native-integration/apple-build/build_apple.sh'
       - 'native-integration/apple-build/verify_macho.py'
       - '.github/workflows/native-compat-apple.yml'
