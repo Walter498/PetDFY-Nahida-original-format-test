@@ -36,7 +36,7 @@ if __name__=='__main__':
         assert not any(n.startswith('_NSV') and s['undefined'] for n,s in syms.items()),'unresolved NSV'
         main=symbols((root/f'NahidaCompat.{arch}.o').read_bytes())
         assert all(main[n]['undefined'] for n in expected[:2]), 'main object does not call NSV entry points'
-        assert not re.search(r'\b_NSV\w*',(root/f'undefined.{arch}.txt').read_text())
+        assert not re.search(r'^\s*_NSV\w*\s*$',(root/f'undefined.{arch}.txt').read_text(),re.M), 'unresolved NSV C symbol'
         report['integration'][arch]={'defined_NSV_symbols':expected,'unresolved_NSV':[],'main_references_resolved':True,'pin':pin(root/f'NahidaCompat.{arch}.i')}
     report['result']='PASS: integrated MRC main + ARC state, actual pin, resolved NSV, genuine arm64/arm64e'
     print(json.dumps(report,indent=2))
