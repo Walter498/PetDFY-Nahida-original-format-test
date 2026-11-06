@@ -61,7 +61,8 @@ static BOOL Geometry(id model) {
     for (id p in model[@"parts"]) {
         if (!Dict(p) || !Vector(p[@"grid"],2) || !Vector(p[@"box"],4) || !Dict(defs[p[@"parent"]])) return NO;
         for (id g in p[@"grid"]) if ([g doubleValue]<1 || [g doubleValue]>128 || floor([g doubleValue])!=[g doubleValue]) return NO;
-        if ([p[@"box"][2] doubleValue]<=[p[@"box"][0] doubleValue] || [p[@"box"][3] doubleValue]<=[p[@"box"][1] doubleValue]) return NO;
+        // Native part.box is [x,y,width,height], not [left,top,right,bottom].
+        if ([p[@"box"][2] doubleValue]<=0 || [p[@"box"][3] doubleValue]<=0) return NO;
     }
     return YES;
 }
