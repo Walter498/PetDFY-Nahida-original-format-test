@@ -1,0 +1,30 @@
+name: Native Compat Apple Build
+on:
+  workflow_dispatch:
+  push:
+    branches: [native-compat-build-20261106]
+    paths:
+      - 'native-integration/NahidaCompat.m'
+      - 'native-integration/apple-build/build_apple.sh'
+      - 'native-integration/apple-build/verify_macho.py'
+      - '.github/workflows/native-compat-apple.yml'
+permissions:
+  contents: read
+jobs:
+  apple-build:
+    runs-on: macos-15
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Compile with native Apple clang and linker and validate actual Mach-O
+        run: bash native-integration/apple-build/build_apple.sh
+      - name: Upload static build evidence (not a device test)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: NahidaCompat-Apple-arm64-arm64e
+          path: native-integration/apple-build/out/
+          if-no-files-found: error
+          retention-days: 14
