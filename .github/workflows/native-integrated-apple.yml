@@ -1,0 +1,30 @@
+name: Integrated Native Compat Apple Build
+on:
+  workflow_dispatch:
+  push:
+    branches: [native-compat-build-20261106]
+    paths:
+      - '.github/workflows/native-integrated-apple.yml'
+      - 'native-integration/NahidaCompat.m'
+      - 'native-integration/state-variants-impl/NativeStateVariants.*'
+      - 'native-integration/own-assets-staging-v3/OwnReleasePin.h'
+      - 'native-integration/apple-build/integrated-build/**'
+permissions:
+  contents: read
+jobs:
+  integrated-apple:
+    runs-on: macos-15
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Compile MRC main and ARC state and link genuine arm64 plus arm64e
+        run: bash native-integration/apple-build/integrated-build/build.sh
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: NahidaCompat-Integrated-Apple-arm64-arm64e
+          path: native-integration/apple-build/integrated-build/out/
+          if-no-files-found: error
+          retention-days: 14

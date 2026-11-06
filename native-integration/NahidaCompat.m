@@ -8,15 +8,29 @@
 #include <sys/stat.h>
 #include <string.h>
 #include <math.h>
+// A release header must define a C string literal. Missing/empty pin is legacy mode.
+#if __has_include("OwnReleasePin.h")
+#include "OwnReleasePin.h"
+#endif
+#ifndef NAHIDA_OWN_CONTRACT_SHA256
+#define NAHIDA_OWN_CONTRACT_SHA256 ""
+#endif
+static NSString *OwnPin(void) { return @NAHIDA_OWN_CONTRACT_SHA256; }
+static BOOL OwnRelease(void) { return OwnPin().length != 0; }
+static BOOL HexHash(id x) {
+    if (![x isKindOfClass:NSString.class] || [x length]!=64) return NO;
+    return [x rangeOfCharacterFromSet:[[NSCharacterSet characterSetWithCharactersInString:@"0123456789abcdef"] invertedSet]].location==NSNotFound;
+}
 
 static NSString *const Domain = @"com.susudear.petdfyprefs";
+static NSString *const PrivateRelativeRoot = @"originals/native/nahida";
 static BOOL IsNahida(id v) { return [v isKindOfClass:NSString.class] && [v isEqualToString:@"nahida"]; }
 static BOOL Selected(void) {
     CFPropertyListRef v = CFPreferencesCopyAppValue(CFSTR("Scheme"), (CFStringRef)Domain);
     BOOL yes = IsNahida((id)v); if (v) CFRelease(v); return yes;
 }
 static BOOL SafePath(id p) {
-    if (![p isKindOfClass:NSString.class] || ![p length] || [p hasPrefix:@"/"] || [p containsString:@"\\"]) return NO;
+    if (![p isKindOfClass:NSString.class] || ![p length] || [p length]>512 || [p rangeOfCharacterFromSet:NSCharacterSet.controlCharacterSet].location!=NSNotFound || [p hasPrefix:@"/"] || [p containsString:@"\\"]) return NO;
     for (NSString *s in [p componentsSeparatedByString:@"/"])
         if (!s.length || [s isEqual:@"."] || [s isEqual:@".."]) return NO;
     return YES;
@@ -24,7 +38,9 @@ static BOOL SafePath(id p) {
 // Reject symlinks at every descendant component (not just the leaf).
 static NSData *Read(NSURL *root, NSString *rel) {
     if (!SafePath(rel)) return nil;
-    NSString *p = root.path;
+    if (!root.isFileURL) return nil;
+    NSString *p = root.path; struct stat rootStat;
+    if (lstat(p.fileSystemRepresentation,&rootStat) || !S_ISDIR(rootStat.st_mode) || S_ISLNK(rootStat.st_mode)) return nil;
     for (NSString *s in [rel componentsSeparatedByString:@"/"]) {
         p = [p stringByAppendingPathComponent:s]; struct stat st;
         if (lstat(p.fileSystemRepresentation, &st) || S_ISLNK(st.st_mode)) return nil;
@@ -68,20 +84,46 @@ static BOOL Geometry(id model) {
 }
 // root is a PRIVATE subtree under the original, already jbroot-resolved URL.
 // Never resolve /var/jb or scan guessed .jbroot-* prefixes.
-static BOOL Validate(NSURL *root, NSString **why) {
-    id c=JSON(Read(root,@"native-contract.json"));
+static BOOL Entry(NSData *d,id e) {
+    id b=Dict(e) ? e[@"bytes"] : nil;
+    return d && [b isKindOfClass:NSNumber.class] && CFGetTypeID((CFTypeRef)b)!=CFBooleanGetTypeID() &&
+        [b doubleValue]==(double)d.length && HexHash(e[@"sha256"]) && [Hash(d) isEqual:e[@"sha256"]];
+}
+static NSString *PartPath(id part) {
+    if (!Dict(part)) return nil;
+    if ([part[@"tex"] isEqual:@"faceFx"]) return @"__face";
+    if (part[@"src"]) return SafePath(part[@"src"]) ? [@"originals/" stringByAppendingString:part[@"src"]] : nil;
+    return SafePath(part[@"tex"]) ? [NSString stringWithFormat:@"originals/schemes/nahida/tex/%@.png",part[@"tex"]] : nil;
+}
+static BOOL Validate(NSURL *root, NSURL *outer, BOOL own, NSString **why) {
+    NSData *raw=Read(root,@"native-contract.json");
+    if (own && (!HexHash(OwnPin()) || !raw || ![Hash(raw) isEqual:OwnPin()])) return Fail(why,@"release contract pin mismatch");
+    id c=JSON(raw);
     if (!Dict(c) || ![c[@"schema"] isEqual:@1] || !IsNahida(c[@"scheme"]) || !IsNahida(c[@"outfit"])) return Fail(why,@"missing/invalid native-contract.json");
+    if (own && (!c[@"ownOnly"] || CFGetTypeID((CFTypeRef)c[@"ownOnly"])!=CFBooleanGetTypeID() || ![c[@"ownOnly"] boolValue] ||
+        ![c[@"bootstrapSelection"] isEqual:@"deepseek-maid"] || ![c[@"effectiveSelection"] isEqual:@"nahida-nahida"])) return Fail(why,@"invalid own declaration");
     id files=c[@"files"], features=c[@"featureFiles"];
     if (!Dict(files) || ![files count] || [files count]>2000 || !Array(features) || ![features count]) return Fail(why,@"missing files/feature closure");
     for (id p in files) {
+        if ([p isEqual:@"native-contract.json"]) return Fail(why,@"self-pinned contract");
         id entry=files[p]; NSData *d=Read(root,p);
-        if (!Dict(entry) || !d || ![entry[@"bytes"] isKindOfClass:NSNumber.class] || [entry[@"bytes"] unsignedLongLongValue]!=d.length || ![Hash(d) isEqual:entry[@"sha256"]]) return Fail(why,@"missing, unsafe or hash-mismatched asset");
+        if (!Entry(d,entry)) return Fail(why,@"missing, unsafe or hash-mismatched asset");
         if ([p hasSuffix:@".png"]) { const unsigned char sig[]={137,80,78,71,13,10,26,10};
             if (d.length<24 || memcmp(d.bytes,sig,8)) return Fail(why,@"invalid PNG header"); }
     }
     if (!files[@"live/model.json"] || !files[@"originals/model.json"]) return Fail(why,@"models not pinned in contract");
     id live=JSON(Read(root,@"live/model.json")), source=JSON(Read(root,@"originals/model.json"));
     if (!Dict(live) || !Dict(source) || !Dict(live[@"models"]) || !Dict(live[@"tables"]) || !Array(source[@"outfits"]) || !Dict(source[@"pivots"]) || !Dict(source[@"units"])) return Fail(why,@"invalid native model structure");
+    if (own) {
+        id boot=c[@"bootFiles"];
+        if (!Dict(boot) || [boot count]!=2) return Fail(why,@"invalid bootFiles");
+        for (NSString *rel in @[@"live/model.json",@"originals/model.json"]) {
+            NSData *d=Read(outer,rel);
+            if (!Entry(d,boot[rel]) || ![d isEqualToData:Read(root,rel)]) return Fail(why,@"boot model differs from pinned native model");
+        }
+        if ([live[@"models"] count]!=1 || [source[@"outfits"] count]!=1 || !Array(source[@"schemes"]) || [source[@"schemes"] count]!=1)
+            return Fail(why,@"foreign own model/scheme/outfit");
+    }
     id model=live[@"models"][@"nahida"];
     NSUInteger outfits=0;
     for (id o in source[@"outfits"]) if (Dict(o) && IsNahida(o[@"id"])) outfits++;
@@ -93,13 +135,39 @@ static BOOL Validate(NSURL *root, NSString **why) {
     if (n!=1) return Fail(why,@"nahida scheme must be unique");
     for (id part in model[@"parts"]) {
         if (!Dict(part) || !Array(part[@"grid"]) || [part[@"grid"] count]!=2 || !Array(part[@"box"]) || [part[@"box"] count]!=4 || ![part[@"parent"] isKindOfClass:NSString.class]) return Fail(why,@"invalid native part geometry");
-        NSString *rel=nil;
-        if (part[@"src"]) { if (!SafePath(part[@"src"])) return Fail(why,@"unsafe part.src"); rel=[@"originals/" stringByAppendingString:part[@"src"]]; }
-        else if ([part[@"tex"] isEqual:@"faceFx"]) continue;
-        else { if (!SafePath(part[@"tex"])) return Fail(why,@"invalid part.tex"); rel=[NSString stringWithFormat:@"originals/schemes/nahida/tex/%@.png",part[@"tex"]]; }
+        NSString *rel=PartPath(part);
+        if ([rel isEqual:@"__face"]) continue;
+        if (!rel) return Fail(why,@"unsafe texture reference");
         if (!files[rel]) return Fail(why,@"part texture not pinned in contract");
     }
     for (id f in features) if (!SafePath(f) || ![f hasPrefix:@"originals/schemes/nahida/feat/"] || !files[f]) return Fail(why,@"feature not pinned in contract");
+    if (own) {
+        if (!files[@"state-variants.json"]) return Fail(why,@"state JSON not pinned");
+        id variants=JSON(Read(root,@"state-variants.json"));
+        if (!Dict(source[@"stateVariants"]) || ![source[@"stateVariants"] isEqual:variants]) return Fail(why,@"embedded stateVariants differs from pinned state JSON");
+        if (!Dict(variants) || ![variants[@"schema"] isEqual:@"same-master-state-variants/v1"] || !Dict(variants[@"states"])) return Fail(why,@"invalid state JSON");
+        for (NSString *required in @[@"stand",@"sit"]) if (!Dict(variants[@"states"][required])) return Fail(why,@"missing state");
+        for (id state in variants[@"states"]) {
+            id node=variants[@"states"][state];
+            id replacements=Dict(node) ? node[@"replacements"] : nil;
+            if (!Dict(replacements)) return Fail(why,@"invalid replacements");
+            for (id key in replacements) {
+                NSString *rel=PartPath(replacements[key]);
+                if (!rel || (![rel isEqual:@"__face"] && !files[rel])) return Fail(why,@"replacement texture not pinned");
+            }
+        }
+        // Close features actually referenced by the source, not only a self-reported list.
+        id feat=source[@"feat"], sprites=Dict(feat) ? feat[@"sprites"] : nil, eyes=Dict(feat) ? feat[@"eyes"] : nil;
+        if (!Dict(sprites) || !Dict(eyes)) return Fail(why,@"missing source features");
+        NSMutableArray *names=[NSMutableArray arrayWithArray:[sprites allKeys]];
+        for (id eye in eyes) for (NSString *suffix in @[@"ball",@"iris",@"lash",@"hl"])
+            [names addObject:[NSString stringWithFormat:@"%@_%@",eye,suffix]];
+        for (id name in names) {
+            if (!SafePath(name)) return Fail(why,@"unsafe feature name");
+            NSString *rel=[NSString stringWithFormat:@"originals/schemes/nahida/feat/%@.png",name];
+            if (!files[rel] || ![features containsObject:rel]) return Fail(why,@"source feature not pinned");
+        }
+    }
     // This is an admission check, NOT a renderer-ready assertion or a helper ready.json.
     return YES;
 }
@@ -113,34 +181,92 @@ static BOOL Signature(Method m, unsigned args, const char *ret) {
 static BOOL Arg(Method m,unsigned i,char type) {
     char *t=method_copyArgumentType(m,i); BOOL ok=t && t[0]==type; free(t); return ok;
 }
+// Process-lifetime immutable resource generation. Installation must stop/restart the
+// host; neither successful nor failed contexts are refreshed during hot replacement.
+static NSMutableDictionary *OwnContexts;
+static BOOL OwnPreferencesActive;
+static BOOL RigHookReady;
+static NSDictionary *OwnContext(NSURL *outer) {
+    if (!OwnRelease() || !outer.isFileURL) return nil;
+    @synchronized (Domain) {
+        if (!OwnContexts) OwnContexts=[NSMutableDictionary new];
+        NSString *key=outer.absoluteString;
+        id cached=OwnContexts[key];
+        if (cached) return Dict(cached) ? cached : nil;
+        NSURL *native=[outer URLByAppendingPathComponent:PrivateRelativeRoot isDirectory:YES];
+        NSString *why=nil; BOOL valid=NO;
+        @try {
+            // Walk from R as well, rejecting symlinked originals/native ancestors.
+            valid=Read(outer,[PrivateRelativeRoot stringByAppendingString:@"/native-contract.json"]) && Validate(native,outer,YES,&why);
+        }
+        @catch (NSException *e) { why=e.reason; }
+        // Retain the parsed source from the same pinned immutable generation.
+        id sourceModel=valid ? JSON(Read(native,@"originals/model.json")) : nil;
+        valid=valid && Dict(sourceModel);
+        id context=valid ? (id)@{@"outer":outer,@"native":native,@"pin":OwnPin(),@"sourceModel":sourceModel} : (id)NSNull.null;
+        OwnContexts[key]=context;
+        if (valid) OwnPreferencesActive=YES;
+        else NSLog(@"[NahidaCompat] own admission denied: %@",why);
+        return valid ? context : nil;
+    }
+}
+static BOOL OwnPrefs(void) { @synchronized (Domain) { return OwnPreferencesActive; } }
+static BOOL OwnSelection(id selection) {
+    return [selection isKindOfClass:NSString.class] &&
+        ( [selection isEqual:@"deepseek-maid"] || [selection isEqual:@"nahida"] || [selection isEqual:@"nahida-nahida"] );
+}
+static void Deny(NSString *reason) {
+    [NSException raise:@"NahidaOwnAdmission" format:@"%@",reason];
+}
+// Install the ARC state module only after native classes and pinned art exist.
+// Its BOOL interlock enables this candidate code, never certifies device acceptance.
+#import "state-variants-impl/NativeStateVariants.h"
+BOOL NCPostValidateRig(id actualRig, NSURL *privateRoot, NSDictionary *sourceModel, NSError **error) {
+    if (!actualRig || !privateRoot.isFileURL || !Dict(sourceModel) || !Dict(sourceModel[@"stateVariants"])) {
+        if (error) *error=[NSError errorWithDomain:@"NahidaCompat" code:1 userInfo:@{NSLocalizedDescriptionKey:@"Invalid verified rig callback input"}];
+        return NO;
+    }
+    if (!NSVInstall(YES,error)) return NO;
+    return NSVMarkVerifiedNahidaRig(actualRig,privateRoot,sourceModel[@"stateVariants"],error);
+}
 static void HookPreferences(Class cls) {
-    // Per-Class captured IMPs: the identically named Settings/SpringBoard classes
-    // have different addresses, ivar layouts and original implementations.
-    Method getter=class_getInstanceMethod(cls,sel_registerName("scheme"));
     Method reload=class_getInstanceMethod(cls,sel_registerName("reload"));
-    Ivar iv=class_getInstanceVariable(cls,"_scheme");
-    if (!Signature(getter,2,"@") || !Signature(reload,2,"v") || !iv || ivar_getTypeEncoding(iv)[0]!='@') return;
-    IMP oldGet=method_getImplementation(getter), oldReload=method_getImplementation(reload);
-    IMP newGet=imp_implementationWithBlock(^id(id obj) {
-        if (Selected()) return @"nahida";
-        return ((id(*)(id,SEL))oldGet)(obj,sel_registerName("scheme"));
-    });
-    IMP newReload=imp_implementationWithBlock(^(id obj) {
+    Method scheme=class_getInstanceMethod(cls,sel_registerName("scheme"));
+    Method outfit=class_getInstanceMethod(cls,sel_registerName("outfit"));
+    Ivar si=class_getInstanceVariable(cls,"_scheme"), oi=class_getInstanceVariable(cls,"_outfit");
+    if (!Signature(reload,2,"v") || !Signature(scheme,2,"@") || !Signature(outfit,2,"@") ||
+        !si || !oi || ivar_getTypeEncoding(si)[0]!='@' || ivar_getTypeEncoding(oi)[0]!='@') return;
+    IMP oldReload=method_getImplementation(reload);
+    for (NSString *name in @[@"scheme",@"outfit"]) {
+        SEL sel=NSSelectorFromString(name); Method getter=class_getInstanceMethod(cls,sel);
+        IMP old=method_getImplementation(getter); BOOL isScheme=[name isEqual:@"scheme"];
+        method_setImplementation(getter,imp_implementationWithBlock(^id(id obj) {
+            if (OwnPrefs() || (isScheme && Selected())) return @"nahida";
+            return ((id(*)(id,SEL))old)(obj,sel);
+        }));
+    }
+    method_setImplementation(reload,imp_implementationWithBlock(^(id obj) {
         ((void(*)(id,SEL))oldReload)(obj,sel_registerName("reload"));
-        if (Selected()) { id old=object_getIvar(obj,iv); id value=[@"nahida" copy]; object_setIvar(obj,iv,value); [old release]; }
-    });
-    method_setImplementation(getter,newGet); method_setImplementation(reload,newReload);
+        if (OwnPrefs() || Selected()) {
+            id old=object_getIvar(obj,si); object_setIvar(obj,si,[@"nahida" copy]); [old release];
+        }
+        if (OwnPrefs()) {
+            id old=object_getIvar(obj,oi); object_setIvar(obj,oi,[@"nahida" copy]); [old release];
+        }
+        // Enabled and download preferences are deliberately not changed here.
+    }));
     [installed addObject:[NSValue valueWithPointer:cls]];
-    NSLog(@"[NahidaCompat] preference hooks registered in %@",NSProcessInfo.processInfo.processName);
 }
 // WNPainter.url and WNRenderer.resourceURL stay at the outer bundle root.
 // Only file paths returned by a Nahida rig are rebased; __face remains a live texture.
 static NSString *PrivateAssetPath(id rig, id path) {
     if (![path isKindOfClass:NSString.class] || [path hasPrefix:@"__"]) return path;
     if (!objc_getAssociatedObject(rig,&PrivateRigKey)) return path;
-    if ([path hasPrefix:@"native/nahida/"]) return path;
+    if (!SafePath(path)) return nil;
+    NSString *prefix=[PrivateRelativeRoot stringByAppendingString:@"/"];
+    if ([path hasPrefix:prefix]) return path;
     if (!SafePath(path) || ![path hasPrefix:@"originals/"]) return nil;
-    return [@"native/nahida/" stringByAppendingString:path];
+    return [prefix stringByAppendingString:path];
 }
 static void HookRig(Class cls) {
     SEL sel=sel_registerName("initWithResourceURL:scheme:seed:freeGround:");
@@ -162,27 +288,74 @@ static void HookRig(Class cls) {
     IMP old=method_getImplementation(m);
     IMP replacement=imp_implementationWithBlock(^id(id obj,NSURL *url,id selection,unsigned int seed,BOOL freeGround) {
         typedef id(*Init)(id,SEL,NSURL *,id,unsigned int,BOOL);
-        if (![selection isKindOfClass:NSString.class] || !IsNahida([[selection componentsSeparatedByString:@"-"] firstObject])) return ((Init)old)(obj,sel,url,selection,seed,freeGround);
-        NSURL *privateRoot=[url URLByAppendingPathComponent:@"native/nahida" isDirectory:YES]; NSString *why=nil;
+        NSDictionary *context=OwnContext(url);
+        BOOL own=OwnRelease();
+        if (own && (!context || !OwnSelection(selection))) { [obj release]; Deny(@"unverified own rig or foreign selection"); return (id)nil; }
+        if (!own && (![selection isKindOfClass:NSString.class] || !IsNahida([[selection componentsSeparatedByString:@"-"] firstObject])))
+            return ((Init)old)(obj,sel,url,selection,seed,freeGround);
+        NSURL *privateRoot=own ? context[@"native"] : [url URLByAppendingPathComponent:PrivateRelativeRoot isDirectory:YES];
+        NSString *why=nil;
         @try {
-            if (!url.isFileURL || !Validate(privateRoot,&why)) {
-                NSLog(@"[NahidaCompat] nahida unavailable: %@ (root %@)",why ?: @"invalid URL",privateRoot.path);
-                [obj release]; return (id)nil;
-            }
-            // Set before the foreign init in case it resolves textures internally.
+            if (!own && (!url.isFileURL || !Validate(privateRoot,url,NO,&why))) { [obj release]; return (id)nil; }
             objc_setAssociatedObject(obj,&PrivateRigKey,@YES,OBJC_ASSOCIATION_RETAIN_NONATOMIC);
             id result=((Init)old)(obj,sel,privateRoot,@"nahida-nahida",seed,freeGround);
-            if (result) objc_setAssociatedObject(result,&PrivateRigKey,@YES,OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            if (!result || ![result isKindOfClass:cls]) {
+                if (result) [result release];
+                if (own) Deny(@"foreign rig initializer returned nil/wrong class");
+                return (id)nil;
+            }
+            objc_setAssociatedObject(result,&PrivateRigKey,@YES,OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            NSDictionary *sourceModel=own ? context[@"sourceModel"] : JSON(Read(privateRoot,@"originals/model.json"));
+            NSError *callbackError=nil;
+            if (!NCPostValidateRig(result,privateRoot,sourceModel,&callbackError)) {
+                [result release]; if (own) Deny(@"verified rig callback rejected"); return (id)nil;
+            }
             return result;
         } @catch (NSException *e) {
-            NSLog(@"[NahidaCompat] nahida native load failed: %@ %@",e.name,e.reason);
-            // Ownership after a foreign init throws is unknown: do not double-release.
-            // A failed init may leak; it must never turn into a fake ready rig.
+            // Own failures must unwind reset, never feed nil into mesh construction.
+            if (own) @throw;
+            NSLog(@"[NahidaCompat] native load failed: %@",e.reason);
             return (id)nil;
         }
     });
-    method_setImplementation(m,replacement); [installed addObject:[NSValue valueWithPointer:cls]];
+    method_setImplementation(m,replacement); RigHookReady=YES; [installed addObject:[NSValue valueWithPointer:cls]];
     NSLog(@"[NahidaCompat] native rig hook registered (not runtime validated)");
+}
+static void HookRenderer(Class cls) {
+    SEL initSel=sel_registerName("initWithResourceURL:liveOnly:"), resetSel=sel_registerName("resetLiveWithScheme:freeGround:");
+    Method init=class_getInstanceMethod(cls,initSel), reset=class_getInstanceMethod(cls,resetSel);
+    Method live=class_getInstanceMethod(cls,sel_registerName("liveRig"));
+    Ivar resource=class_getInstanceVariable(cls,"_resourceURL");
+    if (!Signature(init,4,"@") || !Arg(init,2,'@') || !Arg(init,3,'B') ||
+        !Signature(reset,4,"v") || !Arg(reset,2,'@') || !Arg(reset,3,'B') ||
+        !Signature(live,2,"@") || !resource || ivar_getTypeEncoding(resource)[0]!='@') return;
+    IMP oldInit=method_getImplementation(init), oldReset=method_getImplementation(reset), getLive=method_getImplementation(live);
+    method_setImplementation(reset,imp_implementationWithBlock(^(id obj,id selection,BOOL ground) {
+        if (OwnRelease()) {
+            NSURL *outer=object_getIvar(obj,resource);
+            if (!RigHookReady || !OwnContext(outer) || !OwnSelection(selection)) Deny(@"renderer reset admission denied");
+        }
+        ((void(*)(id,SEL,id,BOOL))oldReset)(obj,resetSel,selection,ground);
+    }));
+    method_setImplementation(init,imp_implementationWithBlock(^id(id obj,NSURL *outer,BOOL liveOnly) {
+        typedef id(*Init)(id,SEL,NSURL *,BOOL);
+        if (!OwnRelease()) return ((Init)oldInit)(obj,initSel,outer,liveOnly);
+        // Gate BEFORE foreign init: original init immediately resets deepseek-maid,
+        // and audited reset is not proven nil-rig-safe. Do not change renderer R.
+        if (!RigHookReady || !OwnContext(outer)) { [obj release]; return (id)nil; }
+        @try {
+            id result=((Init)oldInit)(obj,initSel,outer,YES); // Disable legacy clip manifest.
+            if (!result || ![result isKindOfClass:cls]) { if (result) [result release]; return (id)nil; }
+            id rig=((id(*)(id,SEL))getLive)(result,sel_registerName("liveRig"));
+            if (!rig || !objc_getAssociatedObject(rig,&PrivateRigKey)) { [result release]; return (id)nil; }
+            return result;
+        } @catch (NSException *e) {
+            NSLog(@"[NahidaCompat] renderer startup stopped: %@",e.reason);
+            // Foreign initializer ownership on exception is unspecified; no release.
+            return (id)nil;
+        }
+    }));
+    [installed addObject:[NSValue valueWithPointer:cls]];
 }
 static void Scan(void) {
     @autoreleasepool {
@@ -195,6 +368,7 @@ static void Scan(void) {
             if (!image || (!strstr(image,"/PetDFY.dylib") && !strstr(image,"/PetDFYPrefs.bundle/"))) continue;
             if (!strcmp(name,"PDPreferences")) HookPreferences(c);
             if (!strcmp(name,"WNLiveRig")) HookRig(c);
+            if (!strcmp(name,"WNRenderer")) HookRenderer(c);
         } free(classes);
     }
 }
