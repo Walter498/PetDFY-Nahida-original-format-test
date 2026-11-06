@@ -105,6 +105,7 @@ static BOOL Validate(NSURL *root, NSString **why) {
 }
 
 static NSMutableSet *installed;
+static char PrivateRigKey;
 static BOOL Signature(Method m, unsigned args, const char *ret) {
     if (!m || method_getNumberOfArguments(m)!=args) return NO;
     char *r=method_copyReturnType(m); BOOL ok=!strcmp(r,ret); free(r); return ok;
@@ -132,10 +133,32 @@ static void HookPreferences(Class cls) {
     [installed addObject:[NSValue valueWithPointer:cls]];
     NSLog(@"[NahidaCompat] preference hooks registered in %@",NSProcessInfo.processInfo.processName);
 }
+// WNPainter.url and WNRenderer.resourceURL stay at the outer bundle root.
+// Only file paths returned by a Nahida rig are rebased; __face remains a live texture.
+static NSString *PrivateAssetPath(id rig, id path) {
+    if (![path isKindOfClass:NSString.class] || [path hasPrefix:@"__"]) return path;
+    if (!objc_getAssociatedObject(rig,&PrivateRigKey)) return path;
+    if ([path hasPrefix:@"native/nahida/"]) return path;
+    if (!SafePath(path) || ![path hasPrefix:@"originals/"]) return nil;
+    return [@"native/nahida/" stringByAppendingString:path];
+}
 static void HookRig(Class cls) {
     SEL sel=sel_registerName("initWithResourceURL:scheme:seed:freeGround:");
     Method m=class_getInstanceMethod(cls,sel);
-    if (!Signature(m,6,"@") || !Arg(m,2,'@') || !Arg(m,3,'@') || !Arg(m,4,'I') || !Arg(m,5,'B')) return;
+    Method texture=class_getInstanceMethod(cls,sel_registerName("textureForPart:"));
+    Method feature=class_getInstanceMethod(cls,sel_registerName("featurePath:"));
+    if (!Signature(m,6,"@") || !Arg(m,2,'@') || !Arg(m,3,'@') || !Arg(m,4,'I') || !Arg(m,5,'B') ||
+        !Signature(texture,3,"@") || !Arg(texture,2,'@') || !Signature(feature,3,"@") || !Arg(feature,2,'@')) return;
+    IMP oldTexture=method_getImplementation(texture), oldFeature=method_getImplementation(feature);
+    IMP newTexture=imp_implementationWithBlock(^id(id obj,id part) {
+        id path=((id(*)(id,SEL,id))oldTexture)(obj,sel_registerName("textureForPart:"),part);
+        return PrivateAssetPath(obj,path);
+    });
+    IMP newFeature=imp_implementationWithBlock(^id(id obj,id name) {
+        id path=((id(*)(id,SEL,id))oldFeature)(obj,sel_registerName("featurePath:"),name);
+        return PrivateAssetPath(obj,path);
+    });
+    method_setImplementation(texture,newTexture); method_setImplementation(feature,newFeature);
     IMP old=method_getImplementation(m);
     IMP replacement=imp_implementationWithBlock(^id(id obj,NSURL *url,id selection,unsigned int seed,BOOL freeGround) {
         typedef id(*Init)(id,SEL,NSURL *,id,unsigned int,BOOL);
@@ -146,7 +169,11 @@ static void HookRig(Class cls) {
                 NSLog(@"[NahidaCompat] nahida unavailable: %@ (root %@)",why ?: @"invalid URL",privateRoot.path);
                 [obj release]; return (id)nil;
             }
-            return ((Init)old)(obj,sel,privateRoot,@"nahida-nahida",seed,freeGround);
+            // Set before the foreign init in case it resolves textures internally.
+            objc_setAssociatedObject(obj,&PrivateRigKey,@YES,OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            id result=((Init)old)(obj,sel,privateRoot,@"nahida-nahida",seed,freeGround);
+            if (result) objc_setAssociatedObject(result,&PrivateRigKey,@YES,OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            return result;
         } @catch (NSException *e) {
             NSLog(@"[NahidaCompat] nahida native load failed: %@ %@",e.name,e.reason);
             // Ownership after a foreign init throws is unknown: do not double-release.

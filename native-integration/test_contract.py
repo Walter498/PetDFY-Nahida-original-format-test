@@ -55,7 +55,27 @@ def validate(root):
     for f in c['featureFiles']: assert safe(f) and f.startswith('originals/schemes/nahida/feat/') and f in files
     return 'contract_admissible_not_runtime_ready'
 
+def private_path(path,verified):
+    if not isinstance(path,str) or path.startswith('__') or not verified:return path
+    if path.startswith('native/nahida/'):return path
+    if not safe(path) or not path.startswith('originals/'):return None
+    return 'native/nahida/'+path
+
 class ContractTests(unittest.TestCase):
+    def test_private_paths_both_consumers(self):
+        for path in ['originals/schemes/nahida/tex/face.png','originals/schemes/nahida/feat/eyeL_ball.png','originals/custom/torso.png']:
+            self.assertEqual(private_path(path,True),'native/nahida/'+path)
+            self.assertEqual(private_path(path,False),path)
+    def test_special_paths_and_idempotence(self):
+        for path in [None,'__face','__overlay','native/nahida/originals/x.png']:
+            self.assertEqual(private_path(path,True),path)
+        for path in ['/etc/file','originals/../private','originals/a\\b','other/x']:
+            self.assertIsNone(private_path(path,True))
+    def test_private_mapping_is_instance_verified(self):
+        s=(HERE/'NahidaCompat.m').read_text()
+        self.assertIn('objc_getAssociatedObject(rig,&PrivateRigKey)',s)
+        self.assertIn('method_setImplementation(texture,newTexture)',s)
+        self.assertIn('method_setImplementation(feature,newFeature)',s)
     def fixture(self):return {'deformers':{'body':{'kind':'rot','pivot':[128,256]}},'parts':[{'parent':'body','grid':[2,2],'box':[120,200,30,40]}]}
     def test_xywh_not_right_bottom(self):self.assertTrue(geometry(self.fixture()))
     def test_invalid_geometry(self):
